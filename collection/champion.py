@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import asyncio
 import aiohttp
+from constants import CHAMPION_URL, URL_SUFFIX
 
 @dataclass(slots=True)
 class Champion:
@@ -13,8 +14,11 @@ class Champion:
     skins: list[str]
     related_champions: list[str]
 
-async def get_champion_info(session: aiohttp.ClientSession, champion_url: str):
-    async with session.get(champion_url) as response:
+def champion_url(champion: str):
+    return f"{CHAMPION_URL}/{champion}/{URL_SUFFIX}"
+
+async def get_champion_info(session: aiohttp.ClientSession, c: str):
+    async with session.get(champion_url(c)) as response:
         json = await response.json()
 
         champion = Champion(

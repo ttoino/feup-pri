@@ -1,0 +1,7 @@
+BASE_URL = "https://universe-meeps.leagueoflegends.com/v1"
+URL_SUFFIX = "index.json"
+SEARCH_URL = f"{BASE_URL}/en_us/search/index.json"
+EXPLORE_URL = f"{BASE_URL}/en_us/explore2/index.json"
+CHAMPION_URL = f"{BASE_URL}/en_us/champions/"
+REGION_URL = f"{BASE_URL}/en_us/factions/"
+STORY_URL = f"{BASE_URL}/en_us/story/"

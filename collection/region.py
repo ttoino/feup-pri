@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import asyncio
 import aiohttp
+from constants import REGION_URL, URL_SUFFIX
 
 @dataclass(slots=True)
 class Region:
@@ -9,8 +10,11 @@ class Region:
     description: str
     associated_champions: list[str]
 
-async def get_region_info(session: aiohttp.ClientSession, region_url: str):
-    async with session.get(region_url) as response:
+def region_url(region: str):
+    return f"{REGION_URL}/{region}/{URL_SUFFIX}"
+
+async def get_region_info(session: aiohttp.ClientSession, r: str):
+    async with session.get(region_url(r)) as response:
         json = await response.json()
 
         region = Region(
