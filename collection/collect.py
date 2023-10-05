@@ -1,6 +1,7 @@
 from champion import get_champions
 from region import get_regions
 from story import get_stories
+from race import get_races
 from constants import SEARCH_URL, EXPLORE_URL
 import json
 import os
@@ -45,12 +46,16 @@ async def main():
         champions = await get_champions(session, champions)
         regions = await get_regions(session, regions)
 
+        races = list({r for c in champions for r in c.races})
+        races = await get_races(session, races)
+
         stories = await get_story_names(session)
         stories = await get_stories(session, stories)
     
     write_json(champions, "champions")
     write_json(regions, "regions")
     write_json(stories, "stories")
+    write_json(races, "races")
 
 if __name__ == '__main__':
     asyncio.run(main())

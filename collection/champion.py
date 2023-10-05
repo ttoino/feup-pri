@@ -13,6 +13,7 @@ class Champion:
     roles: list[str]
     skins: list[str]
     related_champions: list[str]
+    races: list[str]
 
 def champion_url(champion: str):
     return f"{CHAMPION_URL}/{champion}/{URL_SUFFIX}"
@@ -22,14 +23,17 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
     async with session.get(champion_url(c)) as response:
         json = await response.json()
 
+        champion_data = json['champion']
+
         champion = Champion(
             id = json['id'],
             name = json['name'],
             title = json['title'],
-            origin = json['champion']['associated-faction-slug'],
-            release_date = json['champion']['release-date'],
+            origin = champion_data['associated-faction-slug'],
+            release_date = champion_data['release-date'],
             roles = [],
             skins = [],
+            races = [race['slug'] for race in champion_data['races']],
             related_champions = [c['slug'] for c in json['related-champions']]
         )
 
@@ -37,6 +41,6 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
 
         return champion
 
-async def get_champions(session: aiohttp.ClientSession, champions: list[str]):
+async def get_champions(session: aiohttp.ClientSession, champions: list[str]) -> list[Champion]:
     return await asyncio.gather(*[get_champion_info(session, champion) for champion in champions])
 
