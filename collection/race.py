@@ -31,5 +31,5 @@ async def get_race_info(session: aiohttp.ClientSession, r: str):
 
         return race
 
-async def get_races(session: aiohttp.ClientSession, races: list[str]):
+async def get_races(session: aiohttp.ClientSession, races: list[str]) ->list[Race]:
     return await asyncio.gather(*[get_race_info(session, race) for race in races])
