@@ -18,6 +18,7 @@ def champion_url(champion: str):
     return f"{CHAMPION_URL}/{champion}/{URL_SUFFIX}"
 
 async def get_champion_info(session: aiohttp.ClientSession, c: str):
+    print(f"\tGetting {c} champion info...")
     async with session.get(champion_url(c)) as response:
         json = await response.json()
 

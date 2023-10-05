@@ -10,6 +10,7 @@ import aiohttp
 import asyncio
 
 async def get_champions_and_regions(session: aiohttp.ClientSession):
+    print("Getting champions and regions...")
     async with session.get(SEARCH_URL) as response:
         json = await response.json()
 
@@ -22,6 +23,7 @@ async def get_champions_and_regions(session: aiohttp.ClientSession):
         return champions, regions
 
 async def get_story_names(session: aiohttp.ClientSession):
+    print("Getting story names...")
     async with session.get(EXPLORE_URL) as response:
         json = await response.json()
 
@@ -30,6 +32,7 @@ async def get_story_names(session: aiohttp.ClientSession):
         return [story['story-slug'] for story in stories if story['type'] == 'story-preview']
 
 def write_json(data, folder):
+    print(f"Writing {folder} json data to 'data/{folder}/'...")
     os.makedirs(f"data/{folder}", exist_ok=True)
 
     for item in data:

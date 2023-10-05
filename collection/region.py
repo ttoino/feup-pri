@@ -14,6 +14,7 @@ def region_url(region: str):
     return f"{REGION_URL}/{region}/{URL_SUFFIX}"
 
 async def get_region_info(session: aiohttp.ClientSession, r: str):
+    print(f"\tGetting {r} region info...")
     async with session.get(region_url(r)) as response:
         json = await response.json()
 

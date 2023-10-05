@@ -18,6 +18,7 @@ def story_url(story: str):
     return f"{STORY_URL}/{story}/{URL_SUFFIX}"
 
 async def get_story_info(session: aiohttp.ClientSession, s: str):
+    print(f"\tGetting {s} story info...")
     async with session.get(story_url(s)) as response:
         json = await response.json()
 
@@ -34,7 +35,7 @@ async def get_story_info(session: aiohttp.ClientSession, s: str):
         for section in json['story']['story-sections']:
             for subsection in section['story-subsections']:
                 content += subsection['content'] or ""
-            
+           
             related_champions += [c['slug'] for c in section['featured-champions']]
             # related_regions += [r['slug'] for r in section['featured-factions']]
 
