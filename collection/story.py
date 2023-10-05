@@ -33,20 +33,20 @@ async def get_story_info(session: aiohttp.ClientSession, s: str):
 
         for section in json['story']['story-sections']:
             for subsection in section['story-subsections']:
-                content += subsection['content']
+                content += subsection['content'] or ""
             
             related_champions += [c['slug'] for c in section['featured-champions']]
-            related_regions += [r['slug'] for r in section['featured-factions']]
+            # related_regions += [r['slug'] for r in section['featured-factions']]
 
         story = Story(
             id = json['id'],
             title = json['story']['title'],
             author = author,
-            content = json['content'],
+            content = content,
             date = json['release-date'],
             type = json['type'],
-            related_champions = [c['slug'] for c in json['related-champions']],
-            related_regions = [r['slug'] for r in json['related-regions']]
+            related_champions = related_champions,
+            related_regions = related_regions
         )
 
         return story

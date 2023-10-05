@@ -4,6 +4,7 @@ from story import get_stories
 from constants import SEARCH_URL, EXPLORE_URL
 import json
 import os
+import dataclasses
 
 import aiohttp
 import asyncio
@@ -26,14 +27,14 @@ async def get_story_names(session: aiohttp.ClientSession):
 
         stories = json['modules']
 
-        return [story['story-slug'] for story in stories]
+        return [story['story-slug'] for story in stories if story['type'] == 'story-preview']
 
 def write_json(data, folder):
-    os.makedirs(folder, exist_ok=True)
+    os.makedirs(f"data/{folder}", exist_ok=True)
 
     for item in data:
-        with open(f"data/{folder}/{item['id']}.json", 'w', encoding='utf-8') as file:
-            json.dump(item, file, indent=4, ensure_ascii=False)
+        with open(f"data/{folder}/{item.id}.json", 'w', encoding='utf-8') as file:
+            json.dump(dataclasses.asdict(item), file, indent=4, ensure_ascii=False)
 
 async def main():
     async with aiohttp.ClientSession() as session:
