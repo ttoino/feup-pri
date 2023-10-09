@@ -2,8 +2,15 @@ from dataclasses import dataclass
 import asyncio
 import aiohttp
 from constants import CHAMPION_URL, URL_SUFFIX, WIKI_URL
-from story import Story
 from bs4 import BeautifulSoup
+
+@dataclass(slots=True)
+class Biography:
+    full: str
+    full_raw: str
+    short: str
+    short_raw: str
+    quote: str
 
 @dataclass(slots=True)
 class Champion:
@@ -15,6 +22,7 @@ class Champion:
     roles: list[str]
     skins: list[str]
     related_champions: list[str]
+    biography: str
     races: list[str]
 
 def champion_url(champion: str):
@@ -31,11 +39,20 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
 
         champion_data = json['champion']
 
+        biography_data = champion_data['biography']
+
         champion = Champion(
             id = json['id'],
             name = json['name'],
             title = json['title'],
             origin = champion_data['associated-faction-slug'],
+            biography=Biography(
+                full = biography_data['full'],
+                full_raw = BeautifulSoup(biography_data['full'], 'html.parser').get_text(),
+                short = biography_data['short'],
+                short_raw = BeautifulSoup(biography_data['short'], 'html.parser').get_text(),
+                quote = biography_data['quote'],
+            ),
             release_date = champion_data['release-date'],
             roles = [],
             skins = [],
