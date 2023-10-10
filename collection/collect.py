@@ -1,14 +1,30 @@
-from champion import get_champions
-from region import get_regions
-from story import get_stories
-from race import get_races
-from constants import SEARCH_URL, EXPLORE_URL
+import asyncio
+import dataclasses
 import json
 import os
-import dataclasses
 
 import aiohttp
-import asyncio
+from champion import get_champions
+from constants import EXPLORE_URL, SEARCH_URL
+from race import get_races
+from region import get_regions
+from story import get_stories
+
+
+def write_json_item(item, folder):
+    with open(f"{folder}/{item.id}.json", 'w', encoding='utf-8') as file:
+        json.dump(dataclasses.asdict(item), file, indent=4, ensure_ascii=False)
+
+
+def write_json_list(data, data_type, category):
+
+    folder_path = f'data/{category}/{data_type}'
+
+    print(f"Writing {data_type} json data to '{folder_path}'...")
+    os.makedirs(folder_path, exist_ok=True)
+
+    for item in data:
+        write_json_item(item, folder_path)
 
 async def get_champions_and_regions(session: aiohttp.ClientSession):
     print("Getting champions and regions...")
@@ -32,14 +48,6 @@ async def get_story_names(session: aiohttp.ClientSession):
 
         return [story['story-slug'] for story in stories if story['type'] == 'story-preview']
 
-def write_json(data, folder):
-    print(f"Writing {folder} json data to 'data/{folder}/'...")
-    os.makedirs(f"data/{folder}", exist_ok=True)
-
-    for item in data:
-        with open(f"data/{folder}/{item.id}.json", 'w', encoding='utf-8') as file:
-            json.dump(dataclasses.asdict(item), file, indent=4, ensure_ascii=False)
-
 async def main():
     async with aiohttp.ClientSession() as session:
         champions, regions = await get_champions_and_regions(session)
@@ -51,11 +59,11 @@ async def main():
 
         stories = await get_story_names(session)
         stories = await get_stories(session, stories)
-    
-    write_json(champions, "champions")
-    write_json(regions, "regions")
-    write_json(stories, "stories")
-    write_json(races, "races")
+
+    write_json_list(champions, "champions", "models")
+    write_json_list(regions, "regions", "models")
+    write_json_list(stories, "stories", "models")
+    write_json_list(races, "races", "models")
 
 if __name__ == '__main__':
     asyncio.run(main())

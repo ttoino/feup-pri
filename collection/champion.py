@@ -1,8 +1,10 @@
-from dataclasses import dataclass
 import asyncio
+from dataclasses import dataclass
+
 import aiohttp
-from constants import CHAMPION_URL, URL_SUFFIX, WIKI_URL
 from bs4 import BeautifulSoup
+from constants import CHAMPION_URL, URL_SUFFIX, WIKI_URL
+
 
 @dataclass(slots=True)
 class Biography:

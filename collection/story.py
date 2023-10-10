@@ -1,8 +1,10 @@
-from dataclasses import dataclass
 import asyncio
+from dataclasses import dataclass
+
 import aiohttp
 from bs4 import BeautifulSoup
 from constants import STORY_URL, URL_SUFFIX
+
 
 @dataclass(slots=True)
 class Story:

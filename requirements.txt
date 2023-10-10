@@ -1,0 +1,4 @@
+beautifulsoup4==4.12.2
+aiohttp==3.8.5
+pandas==2.0.1
+glob2==0.6

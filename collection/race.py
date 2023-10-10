@@ -1,7 +1,9 @@
-from dataclasses import dataclass
 import asyncio
+from dataclasses import dataclass
+
 import aiohttp
 from constants import RACE_URL, URL_SUFFIX
+
 
 @dataclass(slots=True)
 class Race:
