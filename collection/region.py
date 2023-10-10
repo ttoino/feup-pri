@@ -1,15 +1,16 @@
 import asyncio
 from dataclasses import dataclass
-
 import aiohttp
-from .constants import REGION_URL, URL_SUFFIX
+from bs4 import BeautifulSoup
 
+from .constants import REGION_URL, URL_SUFFIX
 
 @dataclass(slots=True)
 class Region:
     id: str
     name: str
     description: str
+    description_raw: str
     associated_champions: list[str]
 
 def region_url(region: str):
@@ -24,6 +25,7 @@ async def get_region_info(session: aiohttp.ClientSession, r: str):
             id = json['id'],
             name = json['faction']['name'],
             description = json['faction']['overview']['short'],
+            description_raw = BeautifulSoup(json['faction']['overview']['short'], 'html.parser').get_text(),
             associated_champions = [c['name'] for c in json['associated-champions']]
         )
 
