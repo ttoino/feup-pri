@@ -2,12 +2,17 @@ PYTHON = python
 
 MAKEFLAGS += --always-make
 
-prepare:
+all: collect process
+
 # This can fail in some linux distributions, be careful 
+prepare:
 	$(PYTHON) -m pip install -r requirements.txt
 
 collect:
-	$(PYTHON) collection/collect.py
+	$(PYTHON) -m collection.collect
+
+process:
+	$(PYTHON) -m processing.process
 
 characterize:
 	$(PYTHON) characterization/characterize.py

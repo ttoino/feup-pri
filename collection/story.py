@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 import aiohttp
 from bs4 import BeautifulSoup
-from constants import STORY_URL, URL_SUFFIX
+from .constants import STORY_URL, URL_SUFFIX
 
 
 @dataclass(slots=True)
@@ -14,7 +14,6 @@ class Story:
     content: str
     content_raw: str    
     date: str
-    type: str
     related_champions: list[str]
 
 def story_url(story: str):
@@ -22,6 +21,7 @@ def story_url(story: str):
 
 async def get_story_info(session: aiohttp.ClientSession, s: str):
     print(f"\tGetting {s} story info...")
+
     async with session.get(story_url(s)) as response:
         json = await response.json()
 
@@ -49,7 +49,6 @@ async def get_story_info(session: aiohttp.ClientSession, s: str):
             content = content,
             content_raw = content_raw,
             date = json['release-date'],
-            type = json['type'],
             related_champions = list(related_champions),
         )
 

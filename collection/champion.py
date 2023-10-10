@@ -3,16 +3,7 @@ from dataclasses import dataclass
 
 import aiohttp
 from bs4 import BeautifulSoup
-from constants import CHAMPION_URL, URL_SUFFIX, WIKI_URL
-
-
-@dataclass(slots=True)
-class Biography:
-    full: str
-    full_raw: str
-    short: str
-    short_raw: str
-    quote: str
+from .constants import CHAMPION_URL, URL_SUFFIX, WIKI_URL
 
 @dataclass(slots=True)
 class Champion:
@@ -21,16 +12,22 @@ class Champion:
     title: str
     origin: str
     release_date: str
+    quote: str
+    biography: str
+    biography_raw: str
     roles: list[str]
     skins: list[str]
-    related_champions: list[str]
-    biography: str
     races: list[str]
+    aliases: list[str]
+    related_champions: list[str]
 
 def champion_url(champion: str):
     return f"{CHAMPION_URL}/{champion}/{URL_SUFFIX}"
 
 def champion_wiki_url(champion: str):
+    return f"{WIKI_URL}/{champion}"
+
+def champion_wiki_lol_url(champion: str):
     return f"{WIKI_URL}/{champion}/LoL"
 
 async def get_champion_info(session: aiohttp.ClientSession, c: str):
@@ -48,21 +45,25 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
             name = json['name'],
             title = json['title'],
             origin = champion_data['associated-faction-slug'],
-            biography=Biography(
-                full = biography_data['full'],
-                full_raw = BeautifulSoup(biography_data['full'], 'html.parser').get_text(),
-                short = biography_data['short'],
-                short_raw = BeautifulSoup(biography_data['short'], 'html.parser').get_text(),
-                quote = biography_data['quote'],
-            ),
+            quote = biography_data['quote'],
+            biography = biography_data['full'],
+            biography_raw = BeautifulSoup(biography_data['full'], 'html.parser').get_text(),
             release_date = champion_data['release-date'],
             roles = [],
             skins = [],
-            races = [race['slug'] for race in champion_data['races']],
-            related_champions = [c['slug'] for c in json['related-champions']],
+            races = [],
+            aliases = [],
+            related_champions = [c['name'] for c in json['related-champions']],
         )
 
     async with session.get(champion_wiki_url(c)) as response:
+        html = await response.text()
+        soup = BeautifulSoup(html, 'html.parser')
+
+        champion.races = [race.text for race in soup.select('div[data-source="species"] li') if race.select_one('s') is None]
+        champion.aliases = [alias.text for alias in soup.select('div[data-source="alias"] li')]
+
+    async with session.get(champion_wiki_lol_url(c)) as response:
         html = await response.text()
         soup = BeautifulSoup(html, 'html.parser')
 

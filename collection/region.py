@@ -2,7 +2,7 @@ import asyncio
 from dataclasses import dataclass
 
 import aiohttp
-from constants import REGION_URL, URL_SUFFIX
+from .constants import REGION_URL, URL_SUFFIX
 
 
 @dataclass(slots=True)
@@ -24,7 +24,7 @@ async def get_region_info(session: aiohttp.ClientSession, r: str):
             id = json['id'],
             name = json['faction']['name'],
             description = json['faction']['overview']['short'],
-            associated_champions = [c['slug'] for c in json['associated-champions']]
+            associated_champions = [c['name'] for c in json['associated-champions']]
         )
 
         return region

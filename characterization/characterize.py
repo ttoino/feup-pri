@@ -5,6 +5,7 @@ import pandas as pd
 import asyncio
 
 
+@dataclass(slots=True)
 class CollectionStatistics:
     num_files: int
 
