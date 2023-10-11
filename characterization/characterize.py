@@ -64,7 +64,7 @@ def plot_champion_social_graph(champions):
         xa, ya = tr_axes((xf, yf))
         # get overlapped axes and plot icon
         a: Axes = plt.axes([xa - icon_center, ya - icon_center, icon_size, icon_size])
-        response = requests.get(champions[n])
+        response = requests.get(chzampions[n])
         b = io.BytesIO(response.content)
         image = Image.open(b)
         a.imshow(image)
@@ -151,7 +151,7 @@ async def main():
     num_stories = len(stories)
     num_champions = len(champions)
     average_word_count = total_word_count / num_stories
-    story_words_by_year = {year: (words_by_year[year] / stories_by_year[year]) for year in stories_by_year.keys()}
+    story_words_by_year = {year: (words_by_year[year] / stories_by_year[year]) for year in stories_by_year}
 
     aggregated_stats = {
         'id': 'data',
@@ -180,7 +180,7 @@ async def main():
 
     plot_data(stories_by_year, "Stories by Year", "Year", "Number of Stories", "stories_by_year")
     plot_data(words_by_year, "Words by Year", "Year", "Number of Words", "words_by_year")
-    plot_data(story_words_by_year, "Words per story per year", "Year","Number of words per story per year", "story_words_by_year" )
+    plot_data(story_words_by_year, "Avg. words per story by year", "Year", "Avg. number of words per story", "story_words_by_year" )
     
     print("Plotting champion social graph...")
     plot_champion_social_graph(champions)
