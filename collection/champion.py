@@ -73,9 +73,9 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
 
         champion.roles = [role.text for role in soup.select('div[data-source="role"] a:last-child')]
         champion.skins = [skin.attrs['title'] for skin in soup.select('.skinviewer-show:not(:first-child) > span[title]')]
-        icon = soup.select_one('.skinviewer-show:first-child img')
+        icon = soup.select_one('.skinviewer-show:first-child > span[title] > img')
         if icon:
-            champion.icon = icon.attrs['src']
+            champion.icon = icon.attrs['data-src']
 
     return champion
 
