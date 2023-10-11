@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from PIL import Image
 import requests
 import io
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+import numpy as np
 
 import seaborn as sns
 
@@ -43,7 +45,7 @@ def plot_champion_social_graph(champions):
 
     fig, ax = plt.subplots()
 
-    size = 30
+    size = 15
     fig.set_size_inches(size, size)
     fig.subplots_adjust(0, 0, 1, 1, 0, 0)
 
@@ -68,7 +70,7 @@ def plot_champion_social_graph(champions):
         a.imshow(image)
         a.axis("off")
 
-    plt.savefig("data/characterization/champion_social_graph.png", )
+    plt.savefig("data/characterization/champion_social_graph.png", dpi=800, transparent=True)
     plt.clf()
 
 def plot_data(data: dict, title, xlabel, ylabel, filename):
@@ -78,7 +80,27 @@ def plot_data(data: dict, title, xlabel, ylabel, filename):
     plot.set_xlabel(xlabel)
     plot.set_ylabel(ylabel)
 
-    plt.savefig(f"data/characterization/{filename}.png", dpi=800)
+    plt.savefig(f"data/characterization/{filename}.png", dpi=800, transparent=True)
+    plt.clf()
+
+def wordcloud(text: str, filename: str):
+    logo = np.array(Image.open("characterization/logo.png"))
+
+    wordcloud = WordCloud(
+        background_color="#FFFFFFFF",
+        stopwords=STOPWORDS | {'s'},
+        mask=logo,
+        mode="RGBA",
+        random_state=42,
+    )
+    wordcloud.generate(text)
+    colors = ImageColorGenerator(logo)
+
+    fg = plt.figure(figsize=(10, 10))
+    fg.subplots_adjust(0, 0, 1, 1, 0, 0)
+    plt.imshow(wordcloud.recolor(color_func=colors), interpolation="bilinear")
+    plt.axis("off")
+    plt.savefig(f"data/characterization/{filename}.png", dpi=800, transparent=True)
     plt.clf()
 
 async def main():
@@ -96,6 +118,8 @@ async def main():
 
     stories_by_year = {}
     words_by_year = {}
+
+    text = ""
 
     for story in stories:
         print(f"Processing {story['id']}...")
@@ -119,6 +143,10 @@ async def main():
             words_by_year[story_year] = words_by_year.get(story_year, 0) + story_stats.num_words
 
         stats.append(story_stats)
+
+        text += '\n' + story['title'] + '\n' + story['content_raw']
+
+    text.replace("’", "'")
 
     num_stories = len(stories)
     num_champions = len(champions)
@@ -147,6 +175,8 @@ async def main():
 
     os.makedirs("data/characterization", exist_ok=True)
     write_json_item(aggregated_stats, "data/characterization")
+
+    wordcloud(text, "wordcloud")
 
     plot_data(stories_by_year, "Stories by Year", "Year", "Number of Stories", "stories_by_year")
     plot_data(words_by_year, "Words by Year", "Year", "Number of Words", "words_by_year")

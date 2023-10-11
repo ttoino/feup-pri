@@ -43,7 +43,7 @@ def nlp(stories):
     for story in stories:
         doc = nlp(story['content_raw'])
 
-        story['entities'] = {entity.text: entity.label_ for entity in doc.ents}
+        story['entities'] = [entity.text for entity in doc.ents if entity.label_ not in ['DATE', 'TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']]
 
 def main():
     champions = read_json_list("champions", "collected")
