@@ -109,6 +109,7 @@ async def main():
 
     num_stories = len(stories)
     average_word_count = total_word_count / num_stories
+    story_words_by_year = {year: (words_by_year[year] / stories_by_year[year]) for year in stories_by_year.keys()}
 
     aggregated_stats = {
         'id': 'data',
@@ -134,6 +135,7 @@ async def main():
 
     plot_data(stories_by_year, "Stories by Year", "Year", "Number of Stories", "stories_by_year")
     plot_data(words_by_year, "Words by Year", "Year", "Number of Words", "words_by_year")
+    plot_data(story_words_by_year, "Words per story per year", "Year","Number of words per story per year", "story_words_by_year" )
     
     print("Plotting champion social graph...")
     plot_champion_social_graph(connections)
