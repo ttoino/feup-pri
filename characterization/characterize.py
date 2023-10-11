@@ -57,7 +57,7 @@ def plot_data(data: dict, title, xlabel, ylabel, filename):
     plot.set_ylabel(ylabel)
 
     plt.savefig(f"data/characterization/{filename}.png")
-    plt.clf() # type: ignore
+    plt.clf()
 
 async def main():
 
@@ -94,9 +94,10 @@ async def main():
         total_word_count += story_stats.num_words
         total_read_time_minutes += story_stats.read_time_minutes
 
-        story_year = isoparse(story["date"]).year if story["date"] else 0
-        stories_by_year[story_year] = stories_by_year.get(story_year, 0) + 1
-        words_by_year[story_year] = words_by_year.get(story_year, 0) + story_stats.num_words
+        if story['date']:
+            story_year = isoparse(story["date"]).year
+            stories_by_year[story_year] = stories_by_year.get(story_year, 0) + 1
+            words_by_year[story_year] = words_by_year.get(story_year, 0) + story_stats.num_words
 
         stats.append(story_stats)
 
