@@ -5,7 +5,7 @@ sys.path.append("..")
 from common.files import read_json_list, write_json_list
 sys.path = sys.path[:-2]
 
-def extract_stories(champions):
+def extract_biographies(champions):
     stories = []
 
     for champion in champions:
@@ -49,7 +49,7 @@ def main():
     regions = read_json_list("regions", "collected")
     stories = read_json_list("stories", "collected")
 
-    stories += extract_stories(champions)
+    stories += extract_biographies(champions)
 
     join_champions_and_region(champions, regions)
     join_stories_and_champions(stories, champions)

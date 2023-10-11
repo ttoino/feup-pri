@@ -15,4 +15,4 @@ process:
 	$(PYTHON) -m processing.process
 
 characterize:
-	$(PYTHON) characterization/characterize.py
+	$(PYTHON) -m characterization.characterize
