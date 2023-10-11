@@ -15,6 +15,8 @@ class Champion:
     quote: str
     biography: str
     biography_raw: str
+    icon: str
+    image: str
     roles: list[str]
     skins: list[str]
     races: list[str]
@@ -49,6 +51,8 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
             biography = biography_data['full'],
             biography_raw = BeautifulSoup(biography_data['full'], 'html.parser').get_text(),
             release_date = champion_data['release-date'],
+            icon = '',
+            image = champion_data['image']['uri'],
             roles = [],
             skins = [],
             races = [],
@@ -56,19 +60,22 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
             related_champions = [c['name'] for c in json['related-champions']],
         )
 
-    async with session.get(champion_wiki_url(c)) as response:
+    async with session.get(champion_wiki_url(champion.name.replace("’", "'"))) as response:
         html = await response.text()
         soup = BeautifulSoup(html, 'html.parser')
 
         champion.races = [race.text for race in soup.select('div[data-source="species"] li') if race.select_one('s') is None]
         champion.aliases = [alias.text for alias in soup.select('div[data-source="alias"] li')]
 
-    async with session.get(champion_wiki_lol_url(c)) as response:
+    async with session.get(champion_wiki_lol_url(champion.name.replace("’", "'"))) as response:
         html = await response.text()
         soup = BeautifulSoup(html, 'html.parser')
 
         champion.roles = [role.text for role in soup.select('div[data-source="role"] a:last-child')]
         champion.skins = [skin.attrs['title'] for skin in soup.select('.skinviewer-show:not(:first-child) > span[title]')]
+        icon = soup.select_one('.skinviewer-show:first-child img')
+        if icon:
+            champion.icon = icon.attrs['src']
 
     return champion
 

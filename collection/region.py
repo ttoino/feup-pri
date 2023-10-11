@@ -11,6 +11,7 @@ class Region:
     name: str
     description: str
     description_raw: str
+    image: str
     associated_champions: list[str]
 
 def region_url(region: str):
@@ -26,6 +27,7 @@ async def get_region_info(session: aiohttp.ClientSession, r: str):
             name = json['faction']['name'],
             description = json['faction']['overview']['short'],
             description_raw = BeautifulSoup(json['faction']['overview']['short'], 'html.parser').get_text(),
+            image = json['faction']['image']['uri'],
             associated_champions = [c['name'] for c in json['associated-champions']]
         )
 

@@ -14,6 +14,7 @@ class Story:
     content: str
     content_raw: str    
     date: str
+    image: str
     related_champions: list[str]
 
 def story_url(story: str):
@@ -49,6 +50,7 @@ async def get_story_info(session: aiohttp.ClientSession, s: str):
             content = content,
             content_raw = content_raw,
             date = json['release-date'],
+            image = json['story']['story-sections'][0]['background-image']['uri'],
             related_champions = list(related_champions),
         )
 

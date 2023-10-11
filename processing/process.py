@@ -16,6 +16,7 @@ def extract_biographies(champions):
             'content': champion['biography'],
             'content_raw': champion['biography_raw'],
             'date': champion['release_date'],
+            'image': champion['image'],
             'related_champions': [champion['id']],
         })
 
