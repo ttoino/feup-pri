@@ -64,7 +64,7 @@ def plot_champion_social_graph(champions):
         xa, ya = tr_axes((xf, yf))
         # get overlapped axes and plot icon
         a: Axes = plt.axes([xa - icon_center, ya - icon_center, icon_size, icon_size])
-        response = requests.get(chzampions[n])
+        response = requests.get(champions[n])
         b = io.BytesIO(response.content)
         image = Image.open(b)
         a.imshow(image)
