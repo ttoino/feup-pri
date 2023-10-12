@@ -176,14 +176,14 @@ async def main():
     os.makedirs("data/characterization", exist_ok=True)
     write_json_item(aggregated_stats, "data/characterization")
 
-    wordcloud(text, "wordcloud")
-
     plot_data(stories_by_year, "Stories by Year", "Year", "Number of Stories", "stories_by_year")
     plot_data(words_by_year, "Words by Year", "Year", "Number of Words", "words_by_year")
     plot_data(story_words_by_year, "Avg. words per story by year", "Year", "Avg. number of words per story", "story_words_by_year" )
     
     print("Plotting champion social graph...")
     plot_champion_social_graph(champions)
+
+    wordcloud(text, "wordcloud")
 
 if __name__ == '__main__':
     asyncio.run(main())
