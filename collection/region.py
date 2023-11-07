@@ -4,6 +4,7 @@ import aiohttp
 from bs4 import BeautifulSoup
 
 from .constants import REGION_URL, URL_SUFFIX
+from .util import raw_text
 
 @dataclass(slots=True)
 class Region:
@@ -26,7 +27,7 @@ async def get_region_info(session: aiohttp.ClientSession, r: str):
             id = json['id'],
             name = json['faction']['name'],
             description = json['faction']['overview']['short'],
-            description_raw = BeautifulSoup(json['faction']['overview']['short'], 'html.parser').get_text(),
+            description_raw = raw_text(json['faction']['overview']['short']),
             image = json['faction']['image']['uri'],
             associated_champions = [c['name'] for c in json['associated-champions']]
         )

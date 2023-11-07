@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import aiohttp
 from bs4 import BeautifulSoup
 from .constants import CHAMPION_URL, URL_SUFFIX, WIKI_URL
+from .util import raw_text
 
 @dataclass(slots=True)
 class Champion:
@@ -49,7 +50,7 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
             origin = champion_data['associated-faction-slug'],
             quote = biography_data['quote'],
             biography = biography_data['full'],
-            biography_raw = BeautifulSoup(biography_data['full'], 'html.parser').get_text(),
+            biography_raw = raw_text(biography_data['full']),
             release_date = champion_data['release-date'],
             icon = '',
             image = champion_data['image']['uri'],
@@ -64,15 +65,15 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
         html = await response.text()
         soup = BeautifulSoup(html, 'html.parser')
 
-        champion.races = [race.text for race in soup.select('div[data-source="species"] li') if race.select_one('s') is None]
-        champion.aliases = [alias.text for alias in soup.select('div[data-source="alias"] li')]
+        champion.races = list({race.text.strip() for race in soup.select('div[data-source="species"] li') if race.select_one('s') is None})
+        champion.aliases = list({alias.text.strip() for alias in soup.select('div[data-source="alias"] li')})
 
     async with session.get(champion_wiki_lol_url(champion.name.replace("’", "'"))) as response:
         html = await response.text()
         soup = BeautifulSoup(html, 'html.parser')
 
-        champion.roles = [role.text for role in soup.select('div[data-source="role"] a:last-child')]
-        champion.skins = [skin.attrs['title'] for skin in soup.select('.skinviewer-show:not(:first-child) > span[title]')]
+        champion.roles = list({role.text.strip() for role in soup.select('div[data-source="role"] a:last-child')})
+        champion.skins = list({skin.attrs['title'].strip() for skin in soup.select('.skinviewer-show:not(:first-child) > span[title]')})
         icon = soup.select_one('.skinviewer-show:first-child > span[title] > img')
         if icon:
             champion.icon = icon.attrs['data-src']

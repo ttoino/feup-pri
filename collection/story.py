@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import aiohttp
 from bs4 import BeautifulSoup
 from .constants import STORY_URL, URL_SUFFIX
+from .util import raw_text
 
 
 @dataclass(slots=True)
@@ -38,17 +39,15 @@ async def get_story_info(session: aiohttp.ClientSession, s: str):
         for section in json['story']['story-sections']:
             for subsection in section['story-subsections']:
                 content += subsection['content'] or ""
-           
-            related_champions |= {c['slug'] for c in section['featured-champions']}
 
-        content_raw = BeautifulSoup(content, 'html.parser').get_text()
+            related_champions |= {c['slug'] for c in section['featured-champions']}
 
         story = Story(
             id = json['id'],
             title = json['story']['title'],
             author = author,
             content = content,
-            content_raw = content_raw,
+            content_raw = raw_text(content),
             date = json['release-date'],
             image = json['story']['story-sections'][0]['background-image']['uri'],
             related_champions = list(related_champions),
