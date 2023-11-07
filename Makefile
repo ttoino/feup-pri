@@ -16,3 +16,8 @@ process:
 
 characterize:
 	$(PYTHON) -m characterization.characterize
+
+init-solr:
+	docker compose exec solr bin/solr create_core -c luis
+	curl -T solr/schema.json http://localhost:8983/solr/luis/schema
+	docker compose exec solr bin/post -c luis /stories

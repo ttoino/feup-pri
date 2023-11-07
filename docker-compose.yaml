@@ -1,6 +1,6 @@
 version: '3'
 services:
-  python:
+  data:
     build:
       context: .
     volumes:
