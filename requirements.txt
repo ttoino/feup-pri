@@ -1,5 +1,11 @@
-beautifulsoup4==4.12.2
-aiohttp==3.8.5
-pandas==2.0.1
-glob2==0.6
-networkx==3.1-1
+aiohttp>=3.8.6
+beautifulsoup4>=4.12.2
+en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.7.0/en_core_web_lg-3.7.0-py3-none-any.whl
+matplotlib>=3.8.1
+networkx>=3.2.1
+numpy>=1.26.1
+pillow>=10.1.0
+pygraphviz>=1.11
+seaborn>=0.13.0
+spacy>=3.7.2
+wordcloud>=1.9.2

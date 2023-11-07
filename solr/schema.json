@@ -1,0 +1,41 @@
+{
+    "add-field": [
+        {
+            "name": "_root_",
+            "type": "StrField"
+        },
+        {
+            "name": "id",
+            "type": "StrField",
+            "indexed": false
+        },
+        {
+            "name": "title",
+            "type": "TextField"
+        },
+        {
+            "name": "author",
+            "type": "TextField"
+        },
+        {
+            "name": "content",
+            "type": "TextField",
+            "indexed": false,
+            "large": true
+        },
+        {
+            "name": "content_raw",
+            "type": "TextField",
+            "large": true
+        },
+        {
+            "name": "date",
+            "type": "DatePointField"
+        },
+        {
+            "name": "image",
+            "type": "StrField",
+            "indexed": false
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  python:
+    build:
+      context: .
+    volumes:
+      - ./data:/app/data
+  solr:
+    image: solr:9.4.0
+    ports:
+      - 8983:8983
+    volumes:
+      - ./data/processed/stories:/stories
+      - ./solr:/data
