@@ -20,9 +20,9 @@ characterize:
 init-solr:
 	-docker compose exec solr bin/solr delete -c luis-basic
 	-docker compose exec solr bin/solr create_core -c luis-basic
-	-curl -T solr/basic.json http://localhost:8983/solr/luis-basic/schema
-	-docker compose exec solr bin/solr post -c luis-basic /stories
+	-docker compose exec solr bin/post -c luis-basic /stories
 	-docker compose exec solr bin/solr delete -c luis-advanced
 	-docker compose exec solr bin/solr create_core -c luis-advanced
-	-curl -T solr/advanced.json http://localhost:8983/solr/luis-advanced/schema
-	-docker compose exec solr bin/solr post -c luis-advanced /stories
+	-docker compose exec solr cp /data/mapping-FoldToASCII.txt /var/solr/data/luis-advanced/conf/
+	-curl --data-binary @solr/advanced.json -H 'Content-type:application/json' http://localhost:8983/solr/luis-advanced/schema
+	-docker compose exec solr bin/post -c luis-advanced /stories

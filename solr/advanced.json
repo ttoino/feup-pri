@@ -1,38 +1,61 @@
 {
     "add-field-type": [
         {
-            "name": "date",
-            "class": "solr.DatePointField",
-            "multiValued": false
-        },
-        {
-            "name": "bool",
-            "class": "solr.BoolField",
-            "multiValued": false
-        },
-        {
-            "name": "string",
-            "class": "solr.StrField",
-            "multiValued": false
-        },
-        {
-            "name": "date_array",
-            "class": "solr.DatePointField",
-            "multiValued": true
-        },
-        {
-            "name": "bool_array",
-            "class": "solr.BoolField",
-            "multiValued": true
-        },
-        {
-            "name": "string_array",
-            "class": "solr.StrField",
-            "multiValued": true
-        },
-        {
             "name": "short_text",
             "class": "solr.TextField",
+            "indexAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "classic"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "kStem"
+                    },
+                    {
+                        "name": "phonetic",
+                        "encoder": "DoubleMetaphone"
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "kStem"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "short_texts",
+            "class": "solr.TextField",
+            "multiValued": true,
             "indexAnalyzer": {
                 "charFilters": [
                     {
@@ -113,7 +136,7 @@
                     },
                     {
                         "name": "stop",
-                        "words": "stopwords.txt",
+                        "words": "lang/stopwords_en.txt",
                         "ignoreCase": true
                     },
                     {
@@ -143,7 +166,78 @@
                     },
                     {
                         "name": "stop",
-                        "words": "stopwords.txt",
+                        "words": "lang/stopwords_en.txt",
+                        "ignoreCase": true
+                    },
+                    {
+                        "name": "porterStem"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "texts",
+            "class": "solr.TextField",
+            "multiValued": true,
+            "indexAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "htmlStrip"
+                    },
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "commonGrams"
+                    },
+                    {
+                        "name": "synonym",
+                        "synonyms": "synonyms.txt",
+                        "ignoreCase": true,
+                        "expand": true
+                    },
+                    {
+                        "name": "stop",
+                        "words": "lang/stopwords_en.txt",
+                        "ignoreCase": true
+                    },
+                    {
+                        "name": "removeDuplicates"
+                    },
+                    {
+                        "name": "porterStem"
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "commonGrams"
+                    },
+                    {
+                        "name": "stop",
+                        "words": "lang/stopwords_en.txt",
                         "ignoreCase": true
                     },
                     {
@@ -154,15 +248,6 @@
         }
     ],
     "add-field": [
-        {
-            "name": "_root_",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "type": "string",
-            "indexed": false
-        },
         {
             "name": "title",
             "type": "short_text"
@@ -184,7 +269,7 @@
         },
         {
             "name": "date",
-            "type": "date"
+            "type": "pdate"
         },
         {
             "name": "image",
@@ -193,81 +278,81 @@
         },
         {
             "name": "related_champions.id",
-            "type": "string_array",
+            "type": "strings",
             "indexed": false
         },
         {
             "name": "related_champions.name",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.title",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.origin.id",
-            "type": "string_array",
+            "type": "strings",
             "indexed": false
         },
         {
             "name": "related_champions.origin.name",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.origin.description",
-            "type": "text"
+            "type": "texts"
         },
         {
             "name": "related_champions.origin.description_raw",
-            "type": "text",
+            "type": "texts",
             "indexed": false
         },
         {
             "name": "related_champions.origin.image",
-            "type": "string_array",
+            "type": "strings",
             "indexed": false
         },
         {
             "name": "related_champions.origin.associated_champions",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.release_date",
-            "type": "date_array"
+            "type": "pdates"
         },
         {
             "name": "related_champions.quote",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.icon",
-            "type": "string_array",
+            "type": "strings",
             "indexed": false
         },
         {
             "name": "related_champions.image",
-            "type": "string_array",
+            "type": "strings",
             "indexed": false
         },
         {
             "name": "related_champions.skins",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.races",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.aliases",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "related_champions.related_champions",
-            "type": "short_text"
+            "type": "short_texts"
         },
         {
             "name": "entities",
-            "type": "short_text"
+            "type": "short_texts"
         }
     ]
 }
