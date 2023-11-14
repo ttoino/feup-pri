@@ -1,10 +1,91 @@
 {
     "add-field-type": [
         {
-            "name": "HTMLTextField",
+            "name": "date",
+            "class": "solr.DatePointField",
+            "multiValued": false
+        },
+        {
+            "name": "bool",
+            "class": "solr.BoolField",
+            "multiValued": false
+        },
+        {
+            "name": "string",
+            "class": "solr.StrField",
+            "multiValued": false
+        },
+        {
+            "name": "date_array",
+            "class": "solr.DatePointField",
+            "multiValued": true
+        },
+        {
+            "name": "bool_array",
+            "class": "solr.BoolField",
+            "multiValued": true
+        },
+        {
+            "name": "string_array",
+            "class": "solr.StrField",
+            "multiValued": true
+        },
+        {
+            "name": "short_text",
             "class": "solr.TextField",
-            "positionIncrementGap": "100",
-            "analyzer": {
+            "indexAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "classic"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "kStem"
+                    },
+                    {
+                        "name": "phonetic",
+                        "encoder": "DoubleMetaphone"
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "kStem"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "text",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
                 "charFilters": [
                     {
                         "name": "htmlStrip"
@@ -20,6 +101,53 @@
                 "filters": [
                     {
                         "name": "lowercase"
+                    },
+                    {
+                        "name": "commonGrams"
+                    },
+                    {
+                        "name": "synonym",
+                        "synonyms": "synonyms.txt",
+                        "ignoreCase": true,
+                        "expand": true
+                    },
+                    {
+                        "name": "stop",
+                        "words": "stopwords.txt",
+                        "ignoreCase": true
+                    },
+                    {
+                        "name": "removeDuplicates"
+                    },
+                    {
+                        "name": "porterStem"
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": [
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "commonGrams"
+                    },
+                    {
+                        "name": "stop",
+                        "words": "stopwords.txt",
+                        "ignoreCase": true
+                    },
+                    {
+                        "name": "porterStem"
                     }
                 ]
             }
@@ -28,118 +156,118 @@
     "add-field": [
         {
             "name": "_root_",
-            "type": "StrField"
+            "type": "string"
         },
         {
             "name": "id",
-            "type": "StrField",
+            "type": "string",
             "indexed": false
         },
         {
             "name": "title",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "author",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "content",
-            "type": "TextField",
-            "indexed": false,
+            "type": "text",
             "large": true
         },
         {
             "name": "content_raw",
-            "type": "TextField",
+            "type": "text",
+            "indexed": false,
             "large": true
         },
         {
             "name": "date",
-            "type": "DatePointField"
+            "type": "date"
         },
         {
             "name": "image",
-            "type": "StrField",
+            "type": "string",
             "indexed": false
         },
         {
             "name": "related_champions.id",
-            "type": "StrField",
+            "type": "string_array",
             "indexed": false
         },
         {
             "name": "related_champions.name",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.title",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.origin.id",
-            "type": "StrField",
+            "type": "string_array",
             "indexed": false
         },
         {
             "name": "related_champions.origin.name",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.origin.description",
-            "type": "TextField",
-            "indexed": false
+            "type": "text"
         },
         {
             "name": "related_champions.origin.description_raw",
-            "type": "TextField"
+            "type": "text",
+            "indexed": false
         },
         {
             "name": "related_champions.origin.image",
-            "type": "StrField",
+            "type": "string_array",
             "indexed": false
         },
         {
             "name": "related_champions.origin.associated_champions",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.release_date",
-            "type": "DatePointField"
+            "type": "date_array"
         },
         {
             "name": "related_champions.quote",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.icon",
-            "type": "StrField",
+            "type": "string_array",
             "indexed": false
         },
         {
             "name": "related_champions.image",
-            "type": "StrField",
+            "type": "string_array",
             "indexed": false
         },
         {
             "name": "related_champions.skins",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.races",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.aliases",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "related_champions.related_champions",
-            "type": "TextField"
+            "type": "short_text"
         },
         {
             "name": "entities",
-            "type": "TextField"
+            "type": "short_text"
         }
     ]
 }
