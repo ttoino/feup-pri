@@ -24,8 +24,7 @@
                         "name": "kStem"
                     },
                     {
-                        "name": "phonetic",
-                        "encoder": "DoubleMetaphone"
+                        "name": "beiderMorse"
                     }
                 ]
             },
@@ -37,7 +36,7 @@
                     }
                 ],
                 "tokenizer": {
-                    "name": "standard"
+                    "name": "classic"
                 },
                 "filters": [
                     {
@@ -48,6 +47,9 @@
                     },
                     {
                         "name": "kStem"
+                    },
+                    {
+                        "name": "beiderMorse"
                     }
                 ]
             }
@@ -77,8 +79,7 @@
                         "name": "kStem"
                     },
                     {
-                        "name": "phonetic",
-                        "encoder": "DoubleMetaphone"
+                        "name": "beiderMorse"
                     }
                 ]
             },
@@ -90,7 +91,7 @@
                     }
                 ],
                 "tokenizer": {
-                    "name": "standard"
+                    "name": "classic"
                 },
                 "filters": [
                     {
@@ -101,6 +102,9 @@
                     },
                     {
                         "name": "kStem"
+                    },
+                    {
+                        "name": "beiderMorse"
                     }
                 ]
             }
