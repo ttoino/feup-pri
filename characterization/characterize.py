@@ -70,7 +70,7 @@ def plot_champion_social_graph(champions):
         a.imshow(image)
         a.axis("off")
 
-    plt.savefig("data/characterization/champion_social_graph.png", dpi=800, transparent=True)
+    plt.savefig("data/characterization/champion_social_graph.pdf", dpi=800, transparent=True, format="pdf")
     plt.clf()
 
 def plot_data(data: dict, title, xlabel, ylabel, filename):
@@ -80,7 +80,7 @@ def plot_data(data: dict, title, xlabel, ylabel, filename):
     plot.set_xlabel(xlabel)
     plot.set_ylabel(ylabel)
 
-    plt.savefig(f"data/characterization/{filename}.png", dpi=800, transparent=True)
+    plt.savefig(f"data/characterization/{filename}.pdf", dpi=800, transparent=True, format="pdf")
     plt.clf()
 
 def wordcloud(text: str, filename: str):
@@ -92,16 +92,16 @@ def wordcloud(text: str, filename: str):
         mask=logo,
         mode="RGBA",
         random_state=42,
+        font_path="characterization/font.otf"
     )
-    wordcloud.generate(text)
+    wordcloud.generate(text.upper())
     colors = ImageColorGenerator(logo)
 
     fg = plt.figure(figsize=(10, 10))
     fg.subplots_adjust(0, 0, 1, 1, 0, 0)
-    plt.imshow(wordcloud.recolor(color_func=colors), interpolation="bilinear")
-    plt.axis("off")
-    plt.savefig(f"data/characterization/{filename}.png", dpi=800, transparent=True)
-    plt.clf()
+
+    with open(f"data/characterization/{filename}.svg", "w") as f:
+        f.write(wordcloud.recolor(color_func=colors).to_svg(embed_font=True))
 
 async def main():
     num_collections = len(glob.glob("data/collected/*"))
