@@ -130,7 +130,8 @@
                         "name": "lowercase"
                     },
                     {
-                        "name": "commonGrams"
+                        "name": "commonGrams",
+                        "words": "lang/stopwords_en.txt"
                     },
                     {
                         "name": "shingle",
@@ -170,7 +171,8 @@
                         "name": "lowercase"
                     },
                     {
-                        "name": "commonGrams"
+                        "name": "commonGrams",
+                        "words": "lang/stopwords_en.txt"
                     },
                     {
                         "name": "shingle",
@@ -209,7 +211,8 @@
                         "name": "lowercase"
                     },
                     {
-                        "name": "commonGrams"
+                        "name": "commonGrams",
+                        "words": "lang/stopwords_en.txt"
                     },
                     {
                         "name": "shingle",
@@ -249,7 +252,8 @@
                         "name": "lowercase"
                     },
                     {
-                        "name": "commonGrams"
+                        "name": "commonGrams",
+                        "words": "lang/stopwords_en.txt"
                     },
                     {
                         "name": "shingle",
