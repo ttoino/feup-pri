@@ -1,4 +1,5 @@
 # SETUP
+# content:(noxus demacia war) AND
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
 import numpy as np
@@ -7,7 +8,7 @@ import requests
 import pandas as pd
 
 QRELS_FILE = "querls.txt"
-QUERY_URL = "http://localhost:8983/solr/luis-advanced/select?indent=true&q.op=OR&q=related_champions.origin.description%3A(noxus%20demacia)&rows=40&useParams=&wt=json"
+QUERY_URL = "http://localhost:8983/solr/luis-advanced/select?indent=true&q.op=AND&q=content%3A(noxus%20demacia%20war)&useParams=&wt=json"
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 # Get query results from Solr instance
