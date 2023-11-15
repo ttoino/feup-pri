@@ -215,10 +215,6 @@
                         "words": "lang/stopwords_en.txt"
                     },
                     {
-                        "name": "shingle",
-                        "maxShingleSize": 10
-                    },
-                    {
                         "name": "synonym",
                         "synonyms": "synonyms.txt",
                         "ignoreCase": true,
@@ -254,10 +250,6 @@
                     {
                         "name": "commonGrams",
                         "words": "lang/stopwords_en.txt"
-                    },
-                    {
-                        "name": "shingle",
-                        "maxShingleSize": 10
                     },
                     {
                         "name": "stop",

@@ -1,4 +1,5 @@
 # SETUP
+# df=content q="garen sister^3" q.op=AND
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
 import numpy as np
@@ -7,12 +8,15 @@ import requests
 import pandas as pd
 
 QRELS_FILE = "querls.txt"
-QUERY_URL = "http://localhost:8983/solr/luis-basic/select?defType=edismax&df=content&fl=*%2Cscore&indent=true&pf=content^1.5 title^2 entities^1.5 related_champions.aliases^3&ps=10&q.op=AND&q=Yordle&qf=content^1.5 title^2 entities^1.5 related_champions.aliases^3&qs=10&sort=score desc&useParams=&wt=json"
+QUERY_URL = "http://localhost:8983/solr/luis-advanced/select?defType=edismax&df=content&fl=*%2Cscore&indent=true&pf=content^1.5 title^2 entities^2 related_champions.aliases^3&ps=10&q.op=AND&q=\"Golden Demon\"&qf=content^1.5 title^2 entities^2 related_champions.aliases^3&qs=10&sort=score desc&useParams=&wt=json"
 
 # Read qrels to extract relevant documents
-relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
+with open(QRELS_FILE, 'r') as f:
+    relevant = list(map(lambda el: el.strip(), f.readlines()))
 # Get query results from Solr instance
 results = requests.get(QUERY_URL).json()['response']['docs']
+
+print(f"Found {len(results)} results")
 
 # METRICS TABLE
 # Define custom decorator to automatically calculate metric based on key
@@ -62,7 +66,7 @@ df = pd.DataFrame([['Metric', 'Value']] +
 ]
 )
 
-with open('results_basic.tex', 'w') as tf:
+with open('results_advanced.tex', 'w') as tf:
     tf.write(df.to_latex())
 
 # PRECISION-RECALL CURVE
@@ -103,6 +107,7 @@ for idx, step in enumerate(recall_values):
 disp = PrecisionRecallDisplay(
     [precision_recall_match.get(r) for r in recall_values], recall_values)
 disp.plot()
-plt.savefig('precision_recall_basic.pdf')
 
-# create a plot 
+print("Recall values: ", recall_values)
+print("Precision values: ", precision_values)
+plt.savefig('precision_recall_advanced.pdf')

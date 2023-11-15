@@ -1,5 +1,5 @@
 # SETUP
-# content:(garen (sister OR brother)) AND
+# df=content q="garen sister^3" q.op=AND
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
 import numpy as np
@@ -8,7 +8,7 @@ import requests
 import pandas as pd
 
 QRELS_FILE = "querls.txt"
-QUERY_URL = "http://localhost:8983/solr/luis-advanced/select?indent=true&q.op=AND&q=content%3A(garen%20(sister%20OR%20brother))&useParams=&wt=json"
+QUERY_URL = "http://localhost:8983/solr/luis-advanced/select?defType=edismax&df=content&fl=*%2Cscore&indent=true&pf=sister^1.5&ps=5&q.op=AND&q=garen sister^3&sort=score desc&useParams=&wt=json"
 
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
@@ -63,7 +63,7 @@ df = pd.DataFrame([['Metric', 'Value']] +
 ]
 )
 
-with open('results_advancedZ.tex', 'w') as tf:
+with open('results_advanced.tex', 'w') as tf:
     tf.write(df.to_latex())
 
 # PRECISION-RECALL CURVE

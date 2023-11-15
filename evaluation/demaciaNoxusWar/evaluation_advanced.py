@@ -62,7 +62,7 @@ df = pd.DataFrame([['Metric', 'Value']] +
 ]
 )
 
-with open('results_advancedZ.tex', 'w') as tf:
+with open('results_advanced.tex', 'w') as tf:
     tf.write(df.to_latex())
 
 # PRECISION-RECALL CURVE

@@ -1,4 +1,5 @@
 # SETUP
+# query content:(garen (sister OR brother)) AND
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
 import numpy as np
@@ -7,12 +8,14 @@ import requests
 import pandas as pd
 
 QRELS_FILE = "querls.txt"
-QUERY_URL = "http://localhost:8983/solr/luis-basic/select?defType=edismax&df=content&fl=*%2Cscore&indent=true&pf=content^1.5 title^2 entities^1.5 related_champions.aliases^3&ps=10&q.op=AND&q=Yordle&qf=content^1.5 title^2 entities^1.5 related_champions.aliases^3&qs=10&sort=score desc&useParams=&wt=json"
+QUERY_URL = "http://localhost:8983/solr/luis-basic/select?defType=edismax&df=content&fl=*%2Cscore&indent=true&pf=content^1.5 title^2 entities^2 related_champions.aliases^3&ps=10&q.op=AND&q=Golden Demon&qf=content^1.5 title^2 entities^2 related_champions.aliases^3&qs=10&sort=score desc&useParams=&wt=json"
 
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 # Get query results from Solr instance
 results = requests.get(QUERY_URL).json()['response']['docs']
+
+print(f"Found {len(results)} results")
 
 # METRICS TABLE
 # Define custom decorator to automatically calculate metric based on key
