@@ -122,7 +122,7 @@ async def main():
     text = ""
 
     for story in stories:
-        print(f"Processing {story['id']}...")
+        print(f"Processing {story['id']} for characterization...")
 
         story_stats = process_story(story)
 

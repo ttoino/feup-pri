@@ -133,6 +133,10 @@
                         "name": "commonGrams"
                     },
                     {
+                        "name": "shingle",
+                        "maxShingleSize": 10
+                    },
+                    {
                         "name": "synonym",
                         "synonyms": "synonyms.txt",
                         "ignoreCase": true,
@@ -167,6 +171,10 @@
                     },
                     {
                         "name": "commonGrams"
+                    },
+                    {
+                        "name": "shingle",
+                        "maxShingleSize": 10
                     },
                     {
                         "name": "stop",
@@ -204,6 +212,10 @@
                         "name": "commonGrams"
                     },
                     {
+                        "name": "shingle",
+                        "maxShingleSize": 10
+                    },
+                    {
                         "name": "synonym",
                         "synonyms": "synonyms.txt",
                         "ignoreCase": true,
@@ -238,6 +250,10 @@
                     },
                     {
                         "name": "commonGrams"
+                    },
+                    {
+                        "name": "shingle",
+                        "maxShingleSize": 10
                     },
                     {
                         "name": "stop",

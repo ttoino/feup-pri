@@ -26,13 +26,13 @@ def extract_biographies(champions):
     return stories
 
 def join_champions_and_region(champions, regions):
-    regions = {region['id']: region for region in regions}
+    regions = {region['id']: {**region, 'type': 'region'} for region in regions}
 
     for champion in champions:
         champion['origin'] = None if champion['origin'] == 'unaffiliated' else regions[champion['origin']]
 
 def join_stories_and_champions(stories, champions):
-    championsMap = {champion['id']: champion for champion in champions}
+    championsMap = {champion['id']: {**champion, 'type': 'champion'} for champion in champions}
 
     for story in stories:
         story['related_champions'] = [championsMap[c] for c in story['related_champions']]
@@ -51,6 +51,9 @@ def main():
     stories = read_json_list("stories", "collected")
 
     stories += extract_biographies(champions)
+
+    for story in stories:
+        story['type'] = 'story'
 
     join_champions_and_region(champions, regions)
     join_stories_and_champions(stories, champions)
