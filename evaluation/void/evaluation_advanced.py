@@ -8,7 +8,7 @@ import requests
 import pandas as pd
 
 QRELS_FILE = "querls.txt"
-QUERY_URL = "http://localhost:8983/solr/luis-advanced/select?indent=true&q.op=OR&q=content%3A(god%20%7C%7C%20myth%20%7C%7C%20legend%20%7C%7C%20demon)&rows=20&useParams=&wt=json"
+QUERY_URL = "http://localhost:8983/solr/luis-basic/select?df=content&indent=true&q.op=OR&q=%22void*%22&useParams=&wt=json"
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 # Get query results from Solr instance

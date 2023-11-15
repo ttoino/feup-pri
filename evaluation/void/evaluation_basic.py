@@ -1,5 +1,5 @@
 # SETUP
-# query content:(garen (sister OR brother)) AND
+# content:(god || myth || legend || demon)
 import matplotlib.pyplot as plt
 from sklearn.metrics import PrecisionRecallDisplay
 import numpy as np
@@ -8,8 +8,7 @@ import requests
 import pandas as pd
 
 QRELS_FILE = "querls.txt"
-QUERY_URL = "http://localhost:8983/solr/luis-basic/select?fq=content%3Alux&indent=true&q.op=AND&q=content%3Agaren&useParams=&wt=json"
-
+QUERY_URL = "http://localhost:8983/solr/luis-basic/select?df=content&indent=true&q.op=OR&q=%22void*%22&useParams=&wt=json"
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 # Get query results from Solr instance
@@ -66,6 +65,7 @@ df = pd.DataFrame([['Metric', 'Value']] +
 with open('results_basic.tex', 'w') as tf:
     tf.write(df.to_latex())
 
+
 # PRECISION-RECALL CURVE
 # Calculate precision and recall values as we move down the ranked list
 precision_values = [
@@ -106,4 +106,4 @@ disp = PrecisionRecallDisplay(
 disp.plot()
 plt.savefig('precision_recall_basic.pdf')
 
-# create a plot 
+print("precision values: ", precision_values)
