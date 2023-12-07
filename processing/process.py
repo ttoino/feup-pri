@@ -1,4 +1,5 @@
 import en_core_web_lg
+from sentence_transformers import SentenceTransformer
 
 import sys
 sys.path.append("..")
@@ -45,6 +46,13 @@ def nlp(stories):
 
         story['entities'] = list({entity.text for entity in doc.ents if entity.label_ not in ['DATE', 'TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']})
 
+def add_vector(stories):
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+
+    for story in stories:
+        content = story['title'] + ' ' + story['content_raw']
+        story['vector'] = model.encode(content, convert_to_tensor=False).tolist()
+
 def main():
     champions = read_json_list("champions", "collected")
     regions = read_json_list("regions", "collected")
@@ -57,6 +65,12 @@ def main():
 
     join_champions_and_region(champions, regions)
     join_stories_and_champions(stories, champions)
+
+    try:
+        add_vector(stories)
+    except:
+        print("Could not add vector to stories.")
+    
     nlp(stories)
 
     write_json_list(stories, "stories", "processed")

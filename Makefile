@@ -14,21 +14,27 @@ collect:
 process:
 	$(PYTHON) -m processing.process
 
+add_vector:
+	jq -n '[ inputs ]' data/processed/stories/*.json | $(PYTHON) get_embeddings.py | jq -c . > data/processed/stories_with_vector.json
+
 characterize:
 	$(PYTHON) -m characterization.characterize
+
+semantic_query:
+	$(PYTHON) query_embedding.py
 
 # init-solr-flat:
 init-solr:
 	-docker compose up -d solr
 	-docker compose exec solr bin/solr delete -c luis-basic
 	-docker compose exec solr bin/solr create_core -c luis-basic
-	-docker compose exec solr bin/post -c luis-basic /stories
+	-docker compose exec solr bin/post -c luis-basic /stories/stories
 	-docker compose exec solr bin/solr delete -c luis-advanced
 	-docker compose exec solr bin/solr create_core -c luis-advanced
 	-docker compose exec solr cp /data/mapping-FoldToASCII.txt /var/solr/data/luis-advanced/conf/
 	-docker compose exec solr cp /data/synonyms.txt /var/solr/data/luis-advanced/conf/
 	-curl --data-binary @solr/advanced.json -H 'Content-type:application/json' http://localhost:8983/solr/luis-advanced/schema
-	-docker compose exec solr bin/post -c luis-advanced /stories
+	-docker compose exec solr bin/post -c luis-advanced /stories/stories_with_vector.json
 
 # init-solr-nested:
 # 	-python -m solr.prepare

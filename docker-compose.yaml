@@ -10,5 +10,5 @@ services:
     ports:
       - 8983:8983
     volumes:
-      - ./data/processed/stories:/stories
+      - ./data/processed:/stories
       - ./solr:/data
