@@ -2,3 +2,12 @@
 __pycache__
 
 data
+
+# venv stuff
+
+pyvenv.cfg
+
+lib/
+lib64
+bin/
+share/

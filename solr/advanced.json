@@ -272,6 +272,15 @@
     ],
     "add-field": [
         {
+            "name": "id",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "type",
+            "type": "string"
+        },
+        {
             "name": "title",
             "type": "short_text"
         },
@@ -309,6 +318,11 @@
             "type": "short_texts"
         },
         {
+            "name": "related_champions.type",
+            "type": "string",
+            "multiValued": true
+        },
+        {
             "name": "related_champions.title",
             "type": "short_texts"
         },
@@ -316,6 +330,10 @@
             "name": "related_champions.origin.id",
             "type": "strings",
             "indexed": false
+        },
+        {
+            "name": "related_champions.origin.type",
+            "type": "string"
         },
         {
             "name": "related_champions.origin.name",
