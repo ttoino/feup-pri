@@ -272,11 +272,6 @@
     ],
     "add-field": [
         {
-            "name": "id",
-            "type": "string",
-            "indexed": false
-        },
-        {
             "name": "type",
             "type": "string"
         },
@@ -319,8 +314,7 @@
         },
         {
             "name": "related_champions.type",
-            "type": "string",
-            "multiValued": true
+            "type": "strings"
         },
         {
             "name": "related_champions.title",
@@ -333,7 +327,7 @@
         },
         {
             "name": "related_champions.origin.type",
-            "type": "string"
+            "type": "strings"
         },
         {
             "name": "related_champions.origin.name",
