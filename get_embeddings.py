@@ -20,7 +20,7 @@ if __name__ == "__main__":
         content = document.get("content_raw", "")
 
         combined_text = title + " " + content
-        document["vector"] = get_embedding(combined_text)
+        document["vector"] = [str(e) for e in get_embedding(combined_text)]
 
     # Output updated JSON to STDOUT
     json.dump(data, sys.stdout, indent=4, ensure_ascii=False)
