@@ -266,7 +266,7 @@
             }
         },
         {
-            "name": "courseVector",
+            "name": "storyContentVector",
             "class": "solr.DenseVectorField",
             "vectorDimension": 384,
             "similarityFunction": "cosine",
@@ -394,7 +394,7 @@
         },
         {
             "name": "vector",
-            "type": "courseVector"
+            "type": "storyContentVector"
         }
     ]
 }

@@ -1,0 +1,157 @@
+{
+    "add-field-types": [
+        {
+            "name": "storyContentVector",
+            "class": "solr.DenseVectorField",
+            "vectorDimension": 384,
+            "similarityFunction": "cosine",
+            "knnAlgorithm": "hnsw"
+        }
+    ],
+    "add-field": [
+        {
+            "name": "type",
+            "type": "string"
+        },
+        {
+            "name": "title",
+            "type": "text_general"
+        },
+        {
+            "name": "author",
+            "type": "text_general"
+        },
+        {
+            "name": "content",
+            "type": "text_general",
+            "large": true,
+            "multiValued": false
+        },
+        {
+            "name": "content_raw",
+            "type": "text_general",
+            "indexed": false,
+            "large": true,
+            "multiValued": false
+        },
+        {
+            "name": "date",
+            "type": "pdate"
+        },
+        {
+            "name": "image",
+            "type": "string",
+            "indexed": false
+        },
+        {
+            "name": "related_champions.id",
+            "type": "string",
+            "multiValued": true,
+            "indexed": false
+        },
+        {
+            "name": "related_champions.name",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.type",
+            "type": "string",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.title",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.origin.id",
+            "type": "string",
+            "multiValued": true,
+            "indexed": false
+        },
+        {
+            "name": "related_champions.origin.type",
+            "type": "string",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.origin.name",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.origin.description",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.origin.description_raw",
+            "type": "text_general",
+            "multiValued": true,
+            "indexed": false
+        },
+        {
+            "name": "related_champions.origin.image",
+            "type": "string",
+            "multiValued": true,
+            "indexed": false
+        },
+        {
+            "name": "related_champions.origin.associated_champions",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.release_date",
+            "type": "pdate",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.quote",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.icon",
+            "type": "string",
+            "multiValued": true,
+            "indexed": false
+        },
+        {
+            "name": "related_champions.image",
+            "type": "string",
+            "multiValued": true,
+            "indexed": false
+        },
+        {
+            "name": "related_champions.skins",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.races",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.aliases",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "related_champions.related_champions",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "entities",
+            "type": "text_general",
+            "multiValued": true
+        },
+        {
+            "name": "vector",
+            "type": "storyContentVector"
+        }
+    ]
+}
