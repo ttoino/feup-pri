@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
     )}`;
 
     const mltBody = {
-        "mlt.fl": "content, title, author, related_champions.name",
+        "mlt.fl": "vector",
         "q": `id:${storyId}`
     };
     const mltParams = new URLSearchParams(mltBody);
