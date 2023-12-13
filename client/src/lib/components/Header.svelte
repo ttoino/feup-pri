@@ -1,13 +1,18 @@
 <script lang="ts">
     import SearchBar from "./SearchBar.svelte";
+    import { Icon, Home } from "svelte-hero-icons";
 </script>
 
-<header class="flex flex-row items-center justify-between self-stretch p-4">
-    <h1 class="h3 text-gold-1">
-        <span class="sr-only md:not-sr-only">
+<header
+    class="sticky top-0 z-10 flex flex-row flex-wrap items-center justify-between gap-x-4 self-stretch bg-gradient-to-b from-blue-6 to-blue-7 p-4 shadow-xl sm:flex-nowrap"
+>
+    <a href="/" class="p-2"><Icon src={Home} class="h-6 w-6" /></a>
+
+    <h1 class="h3 mr-auto text-gold-1">
+        <span class="sr-only lg:not-sr-only">
             LoL Universe Indexing and Search
         </span>
-        <span class="md:hidden" aria-hidden="true">LUIS</span>
+        <span class="lg:hidden" aria-hidden="true">LUIS</span>
     </h1>
 
     <SearchBar />

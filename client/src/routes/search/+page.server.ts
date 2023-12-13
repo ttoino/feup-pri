@@ -6,14 +6,14 @@ import type { PageServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
-    const query = url.searchParams.get("query") ?? "*:*";
-    const page = url.searchParams.get("page") ?? "0";
+    const query = url.searchParams.get("query") || "*:*";
+    const page = url.searchParams.get("page") || "1";
 
     const solrUrl = env.SOLR_URL ?? "http://localhost:8983/solr";
     const searchUrl = `${solrUrl}/${SOLR_CORE}/query`;
 
     const limit = 20;
-    const offset = parseInt(page) * limit;
+    const offset = (parseInt(page) - 1) * limit;
 
     const searchBody: QueryRequest = {
         query,
@@ -41,9 +41,9 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
         return {
             results,
-            query,
-            page,
-            maxPage,
+            query: url.searchParams.get("query"),
+            current: parseInt(page),
+            pages: maxPage,
         };
     } catch (_e) {
         throw error(500, "Failed to fetch results");
