@@ -11,7 +11,7 @@
 </svelte:head>
 
 <Image
-    src={data.story.image}
+    url={data.story.image}
     alt=""
     class="-mt-8 max-h-[calc(100vh-20rem)] w-screen max-w-none object-cover md:-mt-16"
 />
@@ -29,6 +29,18 @@
         <Date date={data.story.date} format="long-date" />
     </p>
 {/if}
+
+
+{#each data.otherStories.slice(0, 5) as item (item.id)}
+   <a href={item.id}>
+    <Image 
+            url={item.image}
+            alt=""
+        />
+        <h3 class="h3">{item.title}</h3>
+    </a>
+{/each}
+
 
 <section class="prose prose-invert mt-16">
     {@html data.story.content}

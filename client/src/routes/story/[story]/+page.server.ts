@@ -13,6 +13,13 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
         storyId,
     )}`;
 
+    const mltBody = {
+        "mlt.fl": "content, title, author, related_champions.name",
+        "q": `id:${storyId}`
+    };
+    const mltParams = new URLSearchParams(mltBody);
+    const mltUrl = `${solrUrl}/${SOLR_CORE}/mlt?${mltParams}` ;
+
     try {
         const response = await fetch(getUrl, {
             method: "GET",
@@ -21,16 +28,27 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
             },
         });
 
+        const mltResponse = await fetch(mltUrl, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+            },
+        })
+
         if (!response.ok) throw error(response.status, response.statusText);
+        if (!mltResponse.ok) throw error(mltResponse.status, mltResponse.statusText);
 
         const data: GetResponse<Story> = await response.json();
+        const mltData = await mltResponse.json();
 
         const story = data.doc;
+        const otherStories = mltData.response.docs;
 
         return {
-            story,
+            story, otherStories
         };
     } catch (_e) {
+        console.log(_e)
         throw error(500, "Failed to fetch results");
     }
 };
