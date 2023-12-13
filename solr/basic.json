@@ -1,7 +1,7 @@
 {
     "add-field-types": [
         {
-            "name": "courseVector",
+            "name": "storyContentVector",
             "class": "solr.DenseVectorField",
             "vectorDimension": 384,
             "similarityFunction": "cosine",
@@ -104,7 +104,8 @@
         },
         {
             "name": "related_champions.release_date",
-            "type": "pdates"
+            "type": "pdate",
+            "multiValued": true
         },
         {
             "name": "related_champions.quote",
@@ -150,7 +151,7 @@
         },
         {
             "name": "vector",
-            "type": "courseVector"
+            "type": "storyContentVector"
         }
     ]
 }
