@@ -112,6 +112,9 @@
         {
             "name": "text",
             "class": "solr.TextField",
+            "similarity": {
+                "class": "solr.ClassicSimilarityFactory"
+            },
             "indexAnalyzer": {
                 "charFilters": [
                     {
