@@ -13,13 +13,33 @@
     <meta name="description" content="Search results" />
 </svelte:head>
 
-{#if data.profile != null}
-    <Profile profile={data.profile}/>
+<h2 class="h1 mb-4 self-start">
+    Search results for <span class="italic">{data.query}</span>
+</h2>
+
+{#if data.spellcheck?.length > 0}
+    <p class="mb-4 self-start">
+        Did you mean
+        {#each data.spellcheck as spellcheck, i}
+            {i > 0 ? " or " : ""}
+            <a
+                class="italic text-gold-3"
+                href="?query={encodeURIComponent(spellcheck)}"
+            >
+                {spellcheck}</a
+            >{/each}?
+    </p>
 {/if}
 
 <ol
     class="grid grid-cols-[repeat(auto-fill,minmax(min(theme(spacing.72),100%),1fr))] gap-4"
 >
+    {#if data.profile != null}
+        <li class="col-span-full border-b-2 border-gold-4 pb-4">
+            <Profile profile={data.profile} />
+        </li>
+    {/if}
+
     {#each data.results as story, i (story.id)}
         <li
             in:fly={{

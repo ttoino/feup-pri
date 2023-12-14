@@ -5,7 +5,7 @@
     export let pages: number;
     export let current: number;
 
-    const hrefToPage = (to: number) => {
+    $: hrefToPage = (to: number) => {
         const params = new URLSearchParams($page.url.searchParams);
         params.set("page", to.toString());
         return `?${params.toString()}`;

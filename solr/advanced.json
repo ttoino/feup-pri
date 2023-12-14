@@ -271,6 +271,26 @@
             "vectorDimension": 384,
             "similarityFunction": "cosine",
             "knnAlgorithm": "hnsw"
+        },
+        {
+            "name": "spellcheckText",
+            "class": "solr.TextField",
+            "multiValued": true,
+            "analyzer": {
+                "charFilters": [
+                    {
+                        "name": "htmlStrip"
+                    },
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "standard"
+                },
+                "filters": []
+            }
         }
     ],
     "add-field": [
@@ -407,6 +427,32 @@
         {
             "name": "vector",
             "type": "storyContentVector"
+        },
+        {
+            "name": "spellcheck",
+            "type": "short_texts"
+        }
+    ],
+    "add-copy-field": [
+        {
+            "source": "title",
+            "dest": "spellcheck"
+        },
+        {
+            "source": "author",
+            "dest": "spellcheck"
+        },
+        {
+            "source": "related_champions.name",
+            "dest": "spellcheck"
+        },
+        {
+            "source": "related_champions.origin.name",
+            "dest": "spellcheck"
+        },
+        {
+            "source": "entities",
+            "dest": "spellcheck"
         }
     ]
 }

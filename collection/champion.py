@@ -65,8 +65,8 @@ async def get_champion_info(session: aiohttp.ClientSession, c: str):
         html = await response.text()
         soup = BeautifulSoup(html, 'html.parser')
 
-        champion.races = list({race.text.strip() for race in soup.select('div[data-source="species"] li') if race.select_one('s') is None})
-        champion.aliases = list({alias.text.strip() for alias in soup.select('div[data-source="alias"] li')})
+        champion.races = list({race.text.strip() for race in soup.select('div[data-source="species"] li, div[data-source="species"] > :last-child:not(:has(li))') if race.select_one('s') is None})
+        champion.aliases = list({alias.text.strip() for alias in soup.select('div[data-source="alias"] li, div[data-source="alias"] > :last-child:not(:has(li))')})
 
     async with session.get(champion_wiki_lol_url(champion.name.replace("’", "'"))) as response:
         html = await response.text()

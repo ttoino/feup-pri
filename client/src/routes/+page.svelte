@@ -9,12 +9,12 @@
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<Image url={liliaImage}/>
+<Image url={liliaImage} />
 <h1 class="h3 text-gold-4">
     <span> Discover League of Legends Universe </span>
 </h1>
-<h2 class="h4 text-gold-2 mb-10">
+<h2 class="h4 mb-10 text-gold-2">
     <span> Dive into this magical world full of wonders and fantasy...</span>
 </h2>
 
-<SearchBar/>
+<SearchBar />

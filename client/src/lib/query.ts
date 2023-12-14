@@ -22,6 +22,18 @@ export interface QueryResponse<Document> {
         numFoundExact: boolean;
         docs: Document[];
     };
+    spellcheck?: {
+        suggestions: (
+            | string
+            | {
+                  numFound: number;
+                  startOffset: number;
+                  endOffset: number;
+                  suggestion: string[];
+              }
+        )[];
+        collations: string[];
+    };
 }
 
 export interface GetResponse<Document> {

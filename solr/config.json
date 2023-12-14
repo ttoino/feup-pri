@@ -2,5 +2,30 @@
     "add-requesthandler": {
         "name": "/mlt",
         "class": "solr.MoreLikeThisHandler"
+    },
+    "update-searchcomponent": {
+        "name": "spellcheck",
+        "class": "solr.SpellCheckComponent",
+        "spellchecker": {
+            "name": "default",
+            "field": "spellcheck",
+            "classname": "solr.DirectSolrSpellChecker"
+        }
+    },
+    "update-requesthandler": {
+        "name": "/query",
+        "class": "solr.SearchHandler",
+        "defaults": {
+            "echoParams": "explicit",
+            "wt": "json",
+            "indent": "true",
+            "spellcheck": "true",
+            "spellcheck.dictionary": "default",
+            "spellcheck.collate": "true",
+            "spellcheck.maxCollations": "3",
+            "spellcheck.maxCollationTries": "10",
+            "spellcheck.maxCollationEvaluations": "10"
+        },
+        "last-components": ["spellcheck"]
     }
 }

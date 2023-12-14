@@ -1,6 +1,7 @@
 <script lang="ts">
     import Date from "$lib/components/Date.svelte";
     import Image from "$lib/components/Image.svelte";
+    import RelatedChampion from "$lib/components/RelatedChampion.svelte";
     import Story from "$lib/components/Story.svelte";
 
     export let data;
@@ -41,7 +42,9 @@
         <div
             class="absolute bottom-0 left-0 top-0 z-10 w-16 bg-gradient-to-r from-blue-6 to-transparent"
         />
-        <ol class="relative flex max-w-full flex-row gap-8 overflow-auto px-16 snap-x">
+        <ol
+            class="relative flex max-w-full snap-x flex-row gap-8 overflow-auto px-16"
+        >
             {#each data.otherStories as story (story.id)}
                 <li class="w-72 max-w-full flex-shrink-0">
                     <Story {story} />
@@ -56,8 +59,16 @@
 
 {#if data.story["related_champions.name"]?.length > 0}
     <h2 class="h1 mb-8 mt-16 text-center text-gold-1">Related Champions</h2>
-    {#each data.story["related_champions.name"] as champion, i}
-        <!-- <Image url={champion.image}/> -->
-       <a class="underline" href="{data.story["related_champions.id"][i]}-bio"> {champion} </a>
-    {/each}
+    <ul class="flex flex-row flex-wrap justify-center gap-8">
+        {#each data.story["related_champions.id"] as championId, i}
+            <li>
+                <RelatedChampion
+                    id={championId}
+                    name={data.story["related_champions.name"][i]}
+                    image={data.story["related_champions.image"][i]}
+                    title={data.story["related_champions.title"][i]}
+                />
+            </li>
+        {/each}
+    </ul>
 {/if}
