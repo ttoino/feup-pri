@@ -19,9 +19,22 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         query,
         offset,
         limit,
-        sort: "score desc",
+        sort: "{!func} product(tf(content,q),idf(content,q)) desc, score desc",
         params: {
+            mm: "2",
             df: "content",
+            "q.alt": "*",
+            qs: "1",
+            ps: "3",
+            indent: "true",
+            fl: "*,score",
+            "q.op": "OR",
+            tie: "0.1",
+            defType: "edismax",
+            qf: "content^5 title^3 related_champions.name^1.5 related_champions.title^1.5 related_champions.aliases^1.7 entities^2 author",
+            pf: "content^3",
+            pf3: "content^3",
+            pf2: "content^3",
         },
     };
 

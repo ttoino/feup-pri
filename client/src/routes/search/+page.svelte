@@ -13,7 +13,7 @@
 </svelte:head>
 
 <ol
-    class="grid grid-cols-[repeat(auto-fit,minmax(min(theme(spacing.72),100%),1fr))] gap-4"
+    class="grid grid-cols-[repeat(auto-fill,minmax(min(theme(spacing.72),100%),1fr))] gap-4"
 >
     {#each data.results as story, i (story.id)}
         <li

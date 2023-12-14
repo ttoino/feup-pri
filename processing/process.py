@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 import sys
 sys.path.append("..")
 from common.files import read_json_list, write_json_list
-sys.path = sys.path[:-2]
+sys.path.pop()
 
 def extract_biographies(champions):
     stories = []
@@ -53,7 +53,7 @@ def add_vector(stories):
 
     for story in stories:
         content = story['title'] + ' ' + story['content_raw']
-        story['vector'] = model.encode(content, convert_to_tensor=False).tolist()
+        story['vector'] = [str(e) for e in model.encode(content, convert_to_tensor=False).tolist()]
 
 def main():
     champions = read_json_list("champions", "collected")
@@ -71,10 +71,12 @@ def main():
     join_stories_and_champions(stories, champions)
 
     try:
+        print("Adding vectors...")
         add_vector(stories)
-    except:
+    except Exception:
         print("Could not add vector to stories.")
     
+    print("Adding entities...")
     nlp(stories)
 
     write_json_list(stories, "stories", "processed")

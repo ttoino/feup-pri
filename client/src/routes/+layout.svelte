@@ -2,6 +2,7 @@
     import "../app.pcss";
 
     import Header from "$lib/components/Header.svelte";
+    import Footer from "$lib/components/Footer.svelte";
 </script>
 
 <div class="flex min-h-full flex-col items-center">
@@ -12,4 +13,6 @@
     >
         <slot />
     </main>
+
+    <Footer />
 </div>

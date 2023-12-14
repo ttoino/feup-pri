@@ -7,6 +7,7 @@ export interface QueryRequest {
     sort?: string | string[];
     facet?: Record<string, unknown>;
     queries?: unknown;
+    params?: Record<string, string | number>;
 }
 
 export interface QueryResponse<Document> {
@@ -25,4 +26,19 @@ export interface QueryResponse<Document> {
 
 export interface GetResponse<Document> {
     doc: Document;
+}
+
+export interface MLTResponse<Document> {
+    match: {
+        numFound: number;
+        start: number;
+        numFoundExact: boolean;
+        docs: Document[];
+    };
+    response: {
+        numFound: number;
+        start: number;
+        numFoundExact: boolean;
+        docs: Document[];
+    };
 }

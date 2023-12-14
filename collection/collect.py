@@ -9,7 +9,7 @@ from .story import get_stories
 import sys
 sys.path.append("..")
 from common.files import write_json_list
-sys.path = sys.path[:-2]
+sys.path.pop()
 
 async def get_champions_and_regions(session: aiohttp.ClientSession):
     print("Getting champions and regions...")

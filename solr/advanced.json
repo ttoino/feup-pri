@@ -280,16 +280,28 @@
         },
         {
             "name": "title",
-            "type": "short_text"
+            "type": "short_text",
+            "termVectors": true,
+            "termPositions": true,
+            "termOffsets": true,
+            "termPayloads": true
         },
         {
             "name": "author",
-            "type": "short_text"
+            "type": "short_text",
+            "termVectors": true,
+            "termPositions": true,
+            "termOffsets": true,
+            "termPayloads": true
         },
         {
             "name": "content",
             "type": "text",
-            "large": true
+            "large": true,
+            "termVectors": true,
+            "termPositions": true,
+            "termOffsets": true,
+            "termPayloads": true
         },
         {
             "name": "content_raw",

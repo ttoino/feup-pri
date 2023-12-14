@@ -1,6 +1,7 @@
 <script lang="ts">
     import Date from "$lib/components/Date.svelte";
     import Image from "$lib/components/Image.svelte";
+    import Story from "$lib/components/Story.svelte";
 
     export let data;
 </script>
@@ -30,18 +31,25 @@
     </p>
 {/if}
 
-
-{#each data.otherStories.slice(0, 5) as item (item.id)}
-   <a href={item.id}>
-    <Image 
-            url={item.image}
-            alt=""
-        />
-        <h3 class="h3">{item.title}</h3>
-    </a>
-{/each}
-
-
 <section class="prose prose-invert mt-16">
     {@html data.story.content}
 </section>
+
+{#if data.otherStories.length > 0}
+    <h2 class="h1 mb-8 mt-16 text-center text-gold-1">More stories</h2>
+    <div class="relative max-w-full">
+        <div
+            class="absolute bottom-0 left-0 top-0 z-10 w-16 bg-gradient-to-r from-blue-6 to-transparent"
+        />
+        <ol class="relative flex max-w-full flex-row gap-8 overflow-auto px-16 snap-x">
+            {#each data.otherStories as story (story.id)}
+                <li class="w-72 max-w-full flex-shrink-0">
+                    <Story {story} />
+                </li>
+            {/each}
+        </ol>
+        <div
+            class="absolute bottom-0 right-0 top-0 z-10 w-16 bg-gradient-to-l from-blue-6 to-transparent"
+        />
+    </div>
+{/if}

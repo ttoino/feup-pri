@@ -1,5 +1,5 @@
 {
-    "add-field-types": [
+    "add-field-type": [
         {
             "name": "storyContentVector",
             "class": "solr.DenseVectorField",
