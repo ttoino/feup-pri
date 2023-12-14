@@ -3,6 +3,7 @@
     import { flip } from "svelte/animate";
     import Pagination from "./Pagination.svelte";
     import { fly } from "svelte/transition";
+    import Profile from "$lib/components/Profile.svelte";
 
     export let data;
 </script>
@@ -11,6 +12,10 @@
     <title>{data.query || "Search"} - LUIS</title>
     <meta name="description" content="Search results" />
 </svelte:head>
+
+{#if data.profile != null}
+    <Profile profile={data.profile}/>
+{/if}
 
 <ol
     class="grid grid-cols-[repeat(auto-fill,minmax(min(theme(spacing.72),100%),1fr))] gap-4"

@@ -52,11 +52,23 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         const results = data.response.docs;
         const maxPage = Math.ceil(data.response.numFound / limit);
 
+        let profile = null;
+        if (query + "-bio" == results[0].id){
+            profile = {
+                id: results[0]["related_champions.id"][0],
+                name: results[0]["related_champions.name"][0],
+                title: results[0]["related_champions.title"][0],
+                image: results[0]["related_champions.image"][0],
+                content: results[0].content
+            }
+        }
+
         return {
             results,
             query: url.searchParams.get("query"),
             current: parseInt(page),
             pages: maxPage,
+            profile
         };
     } catch (_e) {
         throw error(500, "Failed to fetch results");
