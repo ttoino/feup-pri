@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
         const data: MLTResponse<Story> = await response.json();
 
         const story = data.match.docs[0];
-        const otherStories = data.response.docs.slice(0, 5);
+        const otherStories = data.response.docs;
 
         return {
             story,
