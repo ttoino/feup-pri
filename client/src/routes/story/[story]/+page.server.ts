@@ -12,6 +12,9 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
 
     const mltBody = {
         "mlt.fl": "content, title, author, related_champions.name",
+        "mlt.minwl": 3,
+        "mlt.mindf": 1,
+        "mlt.maxdf": 25,
         q: storyId,
         df: "id",
     };
