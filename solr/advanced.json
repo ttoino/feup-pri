@@ -55,6 +55,107 @@
             }
         },
         {
+            "name": "title_text",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "classic"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "beiderMorse"
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "classic"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "beiderMorse"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "author_text",
+            "class": "solr.TextField",
+            "indexAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "classic"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "wordDelimiterGraph",
+                        "preserveOriginal": 1
+                    },
+                    {
+                        "name": "flattenGraph"
+                    }
+                ]
+            },
+            "queryAnalyzer": {
+                "charFilters": [
+                    {
+                        "name": "mapping",
+                        "mapping": "mapping-FoldToASCII.txt"
+                    }
+                ],
+                "tokenizer": {
+                    "name": "classic"
+                },
+                "filters": [
+                    {
+                        "name": "classic"
+                    },
+                    {
+                        "name": "lowercase"
+                    },
+                    {
+                        "name": "wordDelimiterGraph",
+                        "preserveOriginal": 1
+                    }
+                ]
+            }
+        },
+        {
             "name": "short_texts",
             "class": "solr.TextField",
             "multiValued": true,
@@ -300,7 +401,7 @@
         },
         {
             "name": "title",
-            "type": "short_text",
+            "type": "title_text",
             "termVectors": true,
             "termPositions": true,
             "termOffsets": true,
@@ -308,7 +409,7 @@
         },
         {
             "name": "author",
-            "type": "short_text",
+            "type": "author_text",
             "termVectors": true,
             "termPositions": true,
             "termOffsets": true,
