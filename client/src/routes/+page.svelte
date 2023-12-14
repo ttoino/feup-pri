@@ -11,12 +11,10 @@
 
 <Image url={liliaImage}/>
 <h1 class="h3 text-gold-4">
-    <span class="sr-only md:not-sr-only"> Discover League of Legends Universe </span>
-    <span class="md:hidden" aria-hidden="true">LUIS</span>
+    <span> Discover League of Legends Universe </span>
 </h1>
 <h2 class="h4 text-gold-2 mb-10">
-    <span class="sr-only md:not-sr-only"> Dive into this magical world full of wonders and fantasy...</span>
-    <span class="md:hidden" aria-hidden="true">LUIS</span>
+    <span> Dive into this magical world full of wonders and fantasy...</span>
 </h2>
 
 <SearchBar/>
