@@ -28,7 +28,11 @@
         {#if profile.aliases?.length > 0}
             <ul class="inline-flex flex-row">
                 {#each profile.aliases as alias}
-                    <li class="before:content-[',_'] first:before:content-['AKA_'] before:text-grey-1.5 group-hover:before:text-grey-1 bold-label group-hover:text-gold-3 transition-colors before:transition-colors duration-300 before:duration-300">{alias.replace(/\(.*\)/, "")}</li>
+                    <li
+                        class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['AKA_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
+                    >
+                        {alias.replace(/\(.*\)/, "")}
+                    </li>
                 {/each}
             </ul>
         {/if}
@@ -42,7 +46,11 @@
         {#if profile.races?.length > 0}
             <ul class="inline-flex flex-row">
                 {#each profile.races as race}
-                    <li class="before:content-[',_'] first:before:content-['is_'] before:text-grey-1.5 group-hover:before:text-grey-1 bold-label group-hover:text-gold-3 transition-colors before:transition-colors duration-300 before:duration-300">{race}</li>
+                    <li
+                        class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['is_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
+                    >
+                        {race}
+                    </li>
                 {/each}
             </ul>
         {/if}
