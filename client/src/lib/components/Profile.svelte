@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { Champion, Story } from "$lib/documents";
+    import type { Champion } from "$lib/documents";
     import Image from "./Image.svelte";
 
-    export let profile: Champion;
+    export let profile: Champion & { content: string };
 </script>
 
 <article
@@ -55,10 +55,10 @@
             </ul>
         {/if}
 
-        <p
+        <section
             class="prose line-clamp-3 truncate whitespace-normal text-grey-1.5 transition-colors duration-300 group-hover:text-grey-1 prose-p:m-0 prose-hr:hidden"
         >
             {@html profile.content}
-        </p>
+        </section>
     </div>
 </article>

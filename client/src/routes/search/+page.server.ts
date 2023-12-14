@@ -15,26 +15,26 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     const limit = 20;
     const offset = (parseInt(page) - 1) * limit;
 
-    const urlParams = new URLSearchParams()
-    urlParams.set("q", query)
-    urlParams.set("rows", limit.toString())
-    urlParams.set("start", offset.toString())
-    urlParams.set("sort", "score desc")
-    urlParams.set("defType", "edismax")
-    urlParams.set("qf", "content^5 title^0.1 author")
-    urlParams.set("pf", "content^3")
-    urlParams.set("pf3", "content^3")
-    urlParams.set("pf2", "content^3")
-    urlParams.set("mm", "2")
-    urlParams.set("df", "content")
-    urlParams.set("q.alt", "*")
-    urlParams.set("ps", "3")
-    urlParams.set("qs", "1")
-    urlParams.set("indent", "true")
-    urlParams.set("fl", "*,score")
-    urlParams.set("q.op", "OR")
-    urlParams.set("tie", "0.1")
-    urlParams.set("spellcheck", "true")
+    const urlParams = new URLSearchParams();
+    urlParams.set("q", query);
+    urlParams.set("rows", limit.toString());
+    urlParams.set("start", offset.toString());
+    urlParams.set("sort", "score desc");
+    urlParams.set("defType", "edismax");
+    urlParams.set("qf", "content^5 title^0.1 author");
+    urlParams.set("pf", "content^3");
+    urlParams.set("pf3", "content^3");
+    urlParams.set("pf2", "content^3");
+    urlParams.set("mm", "2");
+    urlParams.set("df", "content");
+    urlParams.set("q.alt", "*");
+    urlParams.set("ps", "3");
+    urlParams.set("qs", "1");
+    urlParams.set("indent", "true");
+    urlParams.set("fl", "*,score");
+    urlParams.set("q.op", "OR");
+    urlParams.set("tie", "0.1");
+    urlParams.set("spellcheck", "true");
 
     try {
         const response = await fetch(`${searchUrl}?${urlParams.toString()}`, {

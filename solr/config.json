@@ -13,7 +13,7 @@
         }
     },
     "update-requesthandler": {
-        "name": "/query",
+        "name": "/select",
         "class": "solr.SearchHandler",
         "defaults": {
             "echoParams": "explicit",
@@ -24,7 +24,8 @@
             "spellcheck.collate": "true",
             "spellcheck.maxCollations": "3",
             "spellcheck.maxCollationTries": "10",
-            "spellcheck.maxCollationEvaluations": "10"
+            "spellcheck.maxCollationEvaluations": "10",
+            "spellcheck.onlyMorePopular": "true"
         },
         "last-components": ["spellcheck"]
     }

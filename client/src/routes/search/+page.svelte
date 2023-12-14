@@ -14,7 +14,11 @@
 </svelte:head>
 
 <h2 class="h1 mb-4 self-start">
-    Search results for <span class="italic">{data.query}</span>
+    {#if data.query}
+        Search results for <span class="italic">{data.query}</span>
+    {:else}
+        All stories
+    {/if}
 </h2>
 
 {#if data.spellcheck?.length ?? 0 > 0}

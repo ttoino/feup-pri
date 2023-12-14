@@ -6,7 +6,10 @@
     export let title: string;
 </script>
 
-<a href="/search?query={encodeURIComponent(name)}" class="flex w-40 flex-col items-center">
+<a
+    href="/search?query={encodeURIComponent(name)}"
+    class="flex w-40 flex-col items-center"
+>
     <Image
         url={image}
         alt={name}
