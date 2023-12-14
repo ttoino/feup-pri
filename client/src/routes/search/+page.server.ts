@@ -1,7 +1,7 @@
 import { env } from "$env/dynamic/private";
 import { SOLR_CORE } from "$env/static/private";
 import type { Champion, Story } from "$lib/documents";
-import type { QueryRequest, QueryResponse } from "$lib/query";
+import type { QueryResponse } from "$lib/query";
 import type { PageServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
 
@@ -10,41 +10,35 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     const page = url.searchParams.get("page") || "1";
 
     const solrUrl = env.SOLR_URL ?? "http://localhost:8983/solr";
-    const searchUrl = `${solrUrl}/${SOLR_CORE}/query`;
+    const searchUrl = `${solrUrl}/${SOLR_CORE}/select`;
 
     const limit = 20;
     const offset = (parseInt(page) - 1) * limit;
 
-    const searchBody: QueryRequest = {
-        query,
-        offset,
-        limit,
-        sort: "score desc",
-        params: {
-            mm: "2",
-            df: "content",
-            "q.alt": "*",
-            qs: "1",
-            ps: "3",
-            indent: "true",
-            fl: "*,score",
-            "q.op": "OR",
-            tie: "0.1",
-            defType: "edismax",
-            qf: "content^5 title^3 related_champions.name^1.5 related_champions.title^1.5 related_champions.aliases^1.7 entities^2 author",
-            pf: "content^3",
-            pf3: "content^3",
-            pf2: "content^3",
-            spellcheck: "true",
-        },
-    };
+    const urlParams = new URLSearchParams()
+    urlParams.set("q", query)
+    urlParams.set("rows", limit.toString())
+    urlParams.set("start", offset.toString())
+    urlParams.set("sort", "score desc")
+    urlParams.set("defType", "edismax")
+    urlParams.set("qf", "content^5 title^3 related_champions.name^1.5 related_champions.title^1.5 related_champions.aliases^1.7 entities^2 author")
+    urlParams.set("pf", "content^3")
+    urlParams.set("pf3", "content^3")
+    urlParams.set("pf2", "content^3")
+    urlParams.set("mm", "2")
+    urlParams.set("df", "content")
+    urlParams.set("q.alt", "*")
+    urlParams.set("qs", "1")
+    urlParams.set("ps", "3")
+    urlParams.set("indent", "true")
+    urlParams.set("fl", "*,score")
+    urlParams.set("q.op", "OR")
+    urlParams.set("tie", "0.1")
+    urlParams.set("spellcheck", "true")
 
     try {
-        const response = await fetch(searchUrl, {
-            body: JSON.stringify(searchBody),
-            method: "POST",
+        const response = await fetch(`${searchUrl}?${urlParams.toString()}`, {
             headers: {
-                "Content-Type": "application/json",
                 Accept: "application/json",
             },
         });
