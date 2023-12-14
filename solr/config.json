@@ -20,6 +20,7 @@
             "wt": "json",
             "indent": "true",
             "spellcheck": "true",
+            "spellcheck.accuracy": "0.7",
             "spellcheck.dictionary": "default",
             "spellcheck.collate": "true",
             "spellcheck.maxCollations": "3",
