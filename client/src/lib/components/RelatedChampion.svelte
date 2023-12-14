@@ -1,15 +1,14 @@
 <script lang="ts">
     import Image from "./Image.svelte";
 
-    export let id: string;
     export let name: string;
     export let image: string;
     export let title: string;
 </script>
 
-<a href="/search?query={id}" class="flex w-40 flex-col items-center">
-    <img
-        src={image}
+<a href="/search?query={encodeURIComponent(name)}" class="flex w-40 flex-col items-center">
+    <Image
+        url={image}
         alt={name}
         class="h-36 w-36 rounded-full border-4 border-gold-3 object-cover"
     />
