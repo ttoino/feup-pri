@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         query,
         offset,
         limit,
-        sort: "{!func} product(tf(content,q),idf(content,q)) desc, score desc",
+        sort: "score desc",
         params: {
             mm: "2",
             df: "content",

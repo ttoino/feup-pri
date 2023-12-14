@@ -14648,10 +14648,10 @@ fauvist, fauve
 faux, fake, false, imitation, simulated
 faveolate, alveolate, cavitied, honeycombed, pitted
 favor, favour, prefer, privilege
-favorable, auspicious, encouraging, favourable, golden, lucky, opportune, positive, prosperous
+favorable, auspicious, encouraging, favourable, lucky, opportune, positive, prosperous
 favorableness, advantageousness, favourableness
 favorably, favourably
-favored, advantaged, fortunate, golden, pet, preferred
+favored, advantaged, fortunate, pet, preferred
 favoring, affirmative
 favorite, darling, dearie, deary, ducky, favourite, pet
 favoritism, discrimination, favouritism
@@ -15706,7 +15706,7 @@ fortress, fort
 fortuitous, causeless, uncaused
 fortuitously, fortunately, luckily
 fortuity, accident
-fortunate, favored, golden, hopeful, rosy
+fortunate, favored, hopeful, rosy
 fortunately, fortuitously, luckily
 fortune, chance, circumstances, destiny, fate, hazard, lot, luck, portion
 forty, twoscore, xl
