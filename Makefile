@@ -3,7 +3,7 @@ PYTHON = python3
 MAKEFLAGS += --always-make
 
 
-all: collect process add_vector characterize
+all: collect process characterize
 
 # This can fail in some linux distributions, be careful 
 prepare:
