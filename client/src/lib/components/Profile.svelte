@@ -26,7 +26,7 @@
         </a>
 
         {#if profile.aliases?.length > 0}
-            <ul class="inline-flex flex-row">
+            <ul class="inline-flex flex-row flex-wrap">
                 {#each profile.aliases as alias}
                     <li
                         class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['aka_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
@@ -44,7 +44,7 @@
         </blockquote>
 
         {#if profile.races?.length > 0}
-            <ul class="inline-flex flex-row">
+            <ul class="inline-flex flex-row flex-wrap">
                 {#each profile.races as race}
                     <li
                         class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['is_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
