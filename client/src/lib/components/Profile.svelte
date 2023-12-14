@@ -29,7 +29,7 @@
             <ul class="inline-flex flex-row">
                 {#each profile.aliases as alias}
                     <li
-                        class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['AKA_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
+                        class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['aka_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
                     >
                         {alias.replace(/\(.*\)/, "")}
                     </li>
@@ -53,6 +53,10 @@
                     </li>
                 {/each}
             </ul>
+        {/if}
+
+        {#if profile.origin}
+            <p class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-['from_'] group-hover:text-gold-3 group-hover:before:text-grey-1">{profile.origin.name}</p>
         {/if}
 
         <section
