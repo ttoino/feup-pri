@@ -55,7 +55,7 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         const results = data.response.docs;
         const maxPage = Math.ceil(data.response.numFound / limit);
 
-        let profile: Champion | null = null;
+        let profile: (Champion & { content: string }) | null = null;
 
         for (let i = 0; i < results.length; i++) {
             if (
@@ -78,6 +78,8 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
                     related_champions:
                         results[i]["related_champions.related_champions"],
                     type: "champion",
+
+                    content: results[i].content,
                 };
 
                 if (results[i]["related_champions.origin.id"])

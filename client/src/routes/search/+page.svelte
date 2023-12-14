@@ -17,7 +17,7 @@
     Search results for <span class="italic">{data.query}</span>
 </h2>
 
-{#if data.spellcheck?.length > 0}
+{#if data.spellcheck?.length ?? 0 > 0}
     <p class="mb-4 self-start">
         Did you mean
         {#each data.spellcheck as spellcheck, i}

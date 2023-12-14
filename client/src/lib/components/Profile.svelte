@@ -25,6 +25,14 @@
             </h3>
         </a>
 
+        {#if profile.aliases?.length > 0}
+            <ul class="inline-flex flex-row">
+                {#each profile.aliases as alias}
+                    <li class="before:content-[',_'] first:before:content-['AKA_'] before:text-grey-1.5 group-hover:before:text-grey-1 bold-label group-hover:text-gold-3 transition-colors before:transition-colors duration-300 before:duration-300">{alias.replace(/\(.*\)/, "")}</li>
+                {/each}
+            </ul>
+        {/if}
+
         <blockquote
             class="bold-label italic transition-colors duration-300 group-hover:text-gold-3"
         >
@@ -32,17 +40,9 @@
         </blockquote>
 
         {#if profile.races?.length > 0}
-            <ul>
+            <ul class="inline-flex flex-row">
                 {#each profile.races as race}
-                    <li>{race}</li>
-                {/each}
-            </ul>
-        {/if}
-
-        {#if profile.aliases?.length > 0}
-            <ul>
-                {#each profile.aliases as alias}
-                    <li>{alias}</li>
+                    <li class="before:content-[',_'] first:before:content-['is_'] before:text-grey-1.5 group-hover:before:text-grey-1 bold-label group-hover:text-gold-3 transition-colors before:transition-colors duration-300 before:duration-300">{race}</li>
                 {/each}
             </ul>
         {/if}
