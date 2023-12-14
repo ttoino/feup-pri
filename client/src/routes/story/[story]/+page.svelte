@@ -53,3 +53,11 @@
         />
     </div>
 {/if}
+
+{#if data.story["related_champions.name"]?.length > 0}
+    <h2 class="h1 mb-8 mt-16 text-center text-gold-1">Related Champions</h2>
+    {#each data.story["related_champions.name"] as champion, i}
+        <!-- <Image url={champion.image}/> -->
+       <a class="underline" href="{data.story["related_champions.id"][i]}-bio"> {champion} </a>
+    {/each}
+{/if}
