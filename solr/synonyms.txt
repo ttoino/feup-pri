@@ -1805,7 +1805,7 @@ annoying, annoyance, bothersome, galling, irritating, irritation, nettlesome, pe
 annual, yearbook, yearly
 annually, yearly
 annuity, rente
-annul, avoid, countermand, invalidate, lift, nullify, overturn, quash, repeal, rescind, reverse, revoke, vacate, void
+annul, avoid, countermand, invalidate, lift, nullify, overturn, quash, repeal, rescind, reverse, revoke, vacate
 annular, annulate, annulated, circinate, circular, ringed
 annulate, annular, annulated, circinate, circular, ringed
 annulated, annular, annulate, circinate, circular, ringed
@@ -3130,7 +3130,7 @@ avifaunistic, avifaunal
 avitaminosis, hypovitaminosis
 avocado, aguacate
 avocation, hobby, sideline
-avoid, annul, avert, debar, deflect, invalidate, nullify, obviate, quash, void
+avoid, annul, avert, debar, deflect, invalidate, nullify, obviate, quash
 avoidable, avertable, avertible, evitable
 avoidance, dodging, shunning
 avoirdupois, blubber, fat, fatness
@@ -13093,9 +13093,9 @@ employment, employ, engagement, exercise, usage, use, utilisation, utilization, 
 empower, authorise, authorize, endow, endue, gift, indue, invest
 empowered, sceptered, sceptred
 empowerment, authorisation, authorization
-emptiness, vacancy, vacuum, vanity, void
+emptiness, vacancy, vacuum, vanity
 emptor, buyer, purchaser, vendee
-empty, abandon, discharge, evacuate, hollow, vacate, vacuous, void
+empty, abandon, discharge, evacuate, hollow, vacate, vacuous
 emptying, evacuation, voidance
 empurple, purple, purpurate
 empurpled, embellished, purple, purpleness
@@ -13867,7 +13867,7 @@ eurythmics, eurhythmics, eurhythmy, eurythmy
 eurythmy, eurhythmics, eurhythmy, eurythmics
 eutherian, placental
 evacuant, cathartic, purgative
-evacuate, empty, exhaust, void
+evacuate, empty, exhaust
 evacuation, elimination, emptying, excreting, excretion, voidance, voiding
 evade, bilk, circumvent, dodge, duck, elude, fudge, hedge, parry, sidestep, skirt
 evaluate, appraise, assess, measure, valuate, value
@@ -20838,7 +20838,7 @@ invading, incursive, invasive
 invaginate, introvert
 invagination, infolding, introversion, intussusception
 invalid, disable, handicap, incapacitate
-invalidate, annul, avoid, cancel, nullify, quash, vitiate, void
+invalidate, annul, avoid, cancel, nullify, quash, vitiate
 invalidated, nullified
 invalidating, disconfirming
 invalidation, annulment
@@ -26664,7 +26664,7 @@ notecase, billfold, pocketbook, wallet
 noted, celebrated, famed, famous, illustrious, notable, renowned
 noteworthy, notable, remarkable
 nothing, aught, cipher, cypher, nada, naught, nil, nix, nonentity, null, zero, zilch, zip
-nothingness, jazz, nullity, void, wind
+nothingness, jazz, nullity, wind
 notice, acknowledge, bill, card, comment, detect, discover, find, mark, note, notification, observance, observation, observe, placard, poster, posting, remark
 noticeability, noticeableness, obviousness, patency
 noticeable, detectable, obtrusive
@@ -26734,12 +26734,12 @@ nudnick, nudnik
 nudnik, nudnick
 nuisance, pain
 nuke, atomise, atomize, microwave, zap
-null, aught, cipher, cypher, nada, naught, nil, nix, nothing, void, zero, zilch, zip
+null, aught, cipher, cypher, nada, naught, nil, nix, nothing, zero, zilch, zip
 nullification, override
 nullified, invalidated
 nullifier, invalidator, voider
-nullify, annul, avoid, invalidate, negate, neutralise, neutralize, quash, void
-nullity, nothingness, void
+nullify, annul, avoid, invalidate, negate, neutralise, neutralize, quash
+nullity, nothingness
 numb, benumb, benumbed, blunt, dull, petrified
 numbat, anteater
 number, act, amount, bit, come, count, enumerate, figure, issue, list, numeral, numerate, routine, total, turn
@@ -31441,7 +31441,7 @@ quartet, four, foursome, iv, quadruplet, quartette, quatern, quaternary, quatern
 quartette, foursome, quadruplet, quartet
 quartic, biquadrate, biquadratic
 quartz, crystal, lechatelierite
-quash, annul, avoid, invalidate, nullify, reduce, repress, subdue, subjugate, void
+quash, annul, avoid, invalidate, nullify, reduce, repress, subdue, subjugate
 quassia, bitterwood
 quat, cat, kat, khat, qat
 quatercentenary, quatercentennial
@@ -42165,7 +42165,7 @@ uzbek, usbeg, usbek, uzbak, uzbeg, uzbekistan
 uzbekistan, uzbek
 v, cinque, fin, five, fivesome, pentad, phoebe, quint, quintet, quintuplet, vanadium, volt
 va, virginia
-vacancy, emptiness, vacuum, void
+vacancy, emptiness, vacuum
 vacate, abandon, annul, countermand, empty, lift, overturn, renounce, repeal, rescind, resign, reverse, revoke
 vacation, holiday
 vacationer, vacationist
@@ -42192,7 +42192,7 @@ vacuolisation, vacuolation, vacuolization
 vacuolization, vacuolation, vacuolisation
 vacuous, asinine, empty, fatuous, hollow, inane, mindless
 vacuousness, vacuity
-vacuum, emptiness, hoover, vacancy, vacuity, void
+vacuum, emptiness, hoover, vacancy, vacuity
 vagabond, aimless, cast, drift, drifter, drifting, floater, floating, ramble, range, roam, roll, rootless, rove, stray, swan, tramp, vagrant, wander
 vagabondage, roving, wandering
 vagal, pneumogastric
@@ -42782,7 +42782,7 @@ vitaminize, vitaminise
 vitellus, yolk
 vithar, vidar, vitharr
 vitharr, vidar, vithar
-vitiate, corrupt, debase, debauch, deflower, demoralise, demoralize, deprave, impair, invalidate, mar, misdirect, pervert, profane, spoil, subvert, void
+vitiate, corrupt, debase, debauch, deflower, demoralise, demoralize, deprave, impair, invalidate, mar, misdirect, pervert, profane, spoil, subvert
 vitiated, corrupted, debased, diminished, lessened, weakened
 vitidaceae, vitaceae
 vitreous, glassy, vitrified
@@ -42825,7 +42825,7 @@ voice, articulation, interpreter, part, phonation, representative, sound, spokes
 voiced, sonant
 voiceless, aphonic, breathed, surd, unvoiced
 voicelessness, aphonia
-void, annul, avoid, emptiness, empty, evacuate, invalidate, nothingness, null, nullify, nullity, quash, vacancy, vacuum, vitiate
+annul, avoid, emptiness, empty, evacuate, invalidate, nothingness, null, nullify, nullity, quash, vacancy, vacuum, vitiate
 voidable, rescindable
 voidance, emptying, evacuation
 voider, defecator, gusset, invalidator, nullifier, shitter
