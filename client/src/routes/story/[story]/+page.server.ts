@@ -29,7 +29,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
             },
         });
 
-        if (!response.ok) throw error(response.status, response.statusText);
+        if (!response.ok) error(response.status, response.statusText);
 
         const data: MLTResponse<Story> = await response.json();
 
@@ -42,6 +42,6 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
         };
     } catch (_e) {
         console.log(_e);
-        throw error(500, "Failed to fetch results");
+        error(500, "Failed to fetch results");
     }
 };

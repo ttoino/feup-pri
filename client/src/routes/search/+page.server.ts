@@ -115,6 +115,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         };
     } catch (_e) {
         console.error(_e);
-        throw error(500, "Failed to fetch results");
+        error(500, "Failed to fetch results");
     }
 };
