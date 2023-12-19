@@ -1,5 +1,4 @@
 import { env } from "$env/dynamic/private";
-import { SOLR_CORE } from "$env/static/private";
 import type { Champion, Story } from "$lib/documents";
 import type { QueryResponse } from "$lib/query";
 import type { PageServerLoad } from "./$types";
@@ -10,7 +9,8 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     const page = url.searchParams.get("page") || "1";
 
     const solrUrl = env.SOLR_URL ?? "http://localhost:8983/solr";
-    const searchUrl = `${solrUrl}/${SOLR_CORE}/select`;
+    const solrCore = env.SOLR_CORE ?? "luis";
+    const searchUrl = `${solrUrl}/${solrCore}/select`;
 
     const limit = 20;
     const offset = (parseInt(page) - 1) * limit;
