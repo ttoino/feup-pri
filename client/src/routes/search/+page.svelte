@@ -1,6 +1,5 @@
 <script lang="ts">
     import Story from "$lib/components/Story.svelte";
-    import { flip } from "svelte/animate";
     import Pagination from "./Pagination.svelte";
     import { fly } from "svelte/transition";
     import Profile from "$lib/components/Profile.svelte";
@@ -21,7 +20,7 @@
     {/if}
 </h2>
 
-{#if data.spellcheck?.length ?? 0 > 0}
+{#if data.spellcheck && data.spellcheck.length > 0}
     <p class="mb-4 self-start">
         Did you mean
         {#each data.spellcheck as spellcheck, i}

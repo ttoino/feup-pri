@@ -7,7 +7,7 @@
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<img src={liliaImage} />
+<img src={liliaImage} alt="" />
 <h1 class="h3 text-gold-4">
     <span> Discover League of Legends Universe </span>
 </h1>

@@ -63,7 +63,6 @@
         {#each data.story["related_champions.id"] as championId, i}
             <li>
                 <RelatedChampion
-                    id={championId}
                     name={data.story["related_champions.name"][i]}
                     image={data.story["related_champions.image"][i]}
                     title={data.story["related_champions.title"][i]}

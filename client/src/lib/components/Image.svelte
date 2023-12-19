@@ -5,6 +5,7 @@
 
     interface $Props extends Omit<HTMLImgAttributes, "src"> {
         url: string;
+        alt: string;
     }
 
     export let url: string;
