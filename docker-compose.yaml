@@ -3,6 +3,7 @@ services:
   data:
     build:
       context: .
+      target: data
     volumes:
       - ./data:/app/data
   

@@ -12,6 +12,8 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
     const solrCore = env.SOLR_CORE ?? "luis";
     const searchUrl = `${solrUrl}/${solrCore}/select`;
 
+    console.debug(searchUrl);
+
     const limit = 20;
     const offset = (parseInt(page) - 1) * limit;
 
@@ -113,8 +115,8 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
             profile,
             spellcheck,
         };
-    } catch (_e) {
-        console.error(_e);
+    } catch (e) {
+        console.error(e);
         error(500, "Failed to fetch results");
     }
 };
