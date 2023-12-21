@@ -13,6 +13,7 @@
     description=""
     titleTemplate="%s - LUIS"
     openGraph={{
+        type: "article",
         siteName: "LUIS",
         title: data.story.title,
         article: {

@@ -3,7 +3,7 @@
     import Pagination from "./Pagination.svelte";
     import { fly } from "svelte/transition";
     import Profile from "$lib/components/Profile.svelte";
-    import logoImage from "$lib/images/logo.svg?enhanced";
+    import logoImage from "$lib/images/logo.svg";
     import { MetaTags } from "svelte-meta-tags";
 
     export let data;
@@ -14,6 +14,7 @@
     description="Search results for {data.query}"
     titleTemplate="%s - LUIS"
     openGraph={{
+        type: "website",
         siteName: "LUIS",
         title: data.query || 'Search',
         images: [

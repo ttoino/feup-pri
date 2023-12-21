@@ -1,5 +1,5 @@
 <script lang="ts">
-    import logoImage from "$lib/images/logo.svg?enhanced";
+    import logoImage from "$lib/images/logo.svg";
     import { MetaTags } from "svelte-meta-tags";
 </script>
 
@@ -8,6 +8,7 @@
     description="Discover the League of Legends Universe"
     titleTemplate="%s - LUIS"
     openGraph={{
+        type: "website",
         siteName: "LUIS",
         title: "Home",
         images: [
