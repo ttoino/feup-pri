@@ -26,13 +26,12 @@
         </a>
 
         {#if profile.aliases?.length > 0}
-            <ul class="inline-flex flex-row flex-wrap">
+            <ul class="inline-flex flex-row flex-wrap gap-x-[1ch]">
                 {#each profile.aliases as alias}
                     <li
-                        class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['aka_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
+                        class="bold-label transition-colors duration-300 before:text-grey-1.5 after:text-grey-1.5 before:transition-colors after:transition-colors before:duration-300 after:duration-300 last:after:content-none after:content-[','] first:before:content-['aka_'] group-hover:text-gold-3 group-hover:before:text-grey-1 group-hover:after:text-grey-1"
                     >
-                        {alias.replace(/\(.*\)/, "")}
-                    </li>
+                        {alias.replace(/\(.*\)/, "").trim()}</li>
                 {/each}
             </ul>
         {/if}
@@ -44,10 +43,10 @@
         </blockquote>
 
         {#if profile.races?.length > 0}
-            <ul class="inline-flex flex-row flex-wrap">
+            <ul class="inline-flex flex-row flex-wrap gap-x-[1ch]">
                 {#each profile.races as race}
                     <li
-                        class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-[',_'] first:before:content-['is_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
+                        class="bold-label transition-colors duration-300 before:text-grey-1.5 after:text-grey-1.5 before:transition-colors after:transition-colors before:duration-300 after:duration-300 last:after:content-none after:content-[','] first:before:content-['is_'] group-hover:text-gold-3 group-hover:before:text-grey-1 group-hover:after:text-grey-1"
                     >
                         {race}
                     </li>

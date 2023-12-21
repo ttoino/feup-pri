@@ -34,6 +34,7 @@ export interface QueryResponse<Document> {
         )[];
         collations: string[];
     };
+    highlighting?: Record<string, Record<string, string[]>>;
 }
 
 export interface GetResponse<Document> {

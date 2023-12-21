@@ -2,7 +2,7 @@
     import type { Story } from "$lib/documents";
     import Image from "./Image.svelte";
 
-    export let story: Story;
+    export let story: Story & { highlighting?: string };
 </script>
 
 <article
@@ -38,7 +38,7 @@
             class:line-clamp-4={!story.author}
             class:line-clamp-3={story.author}
         >
-            {@html story.content}
+            {@html story.highlighting || story.content}
         </section>
     </div>
 </article>

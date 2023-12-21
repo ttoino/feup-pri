@@ -8,7 +8,9 @@ services:
       - ./data:/app/data
   
   solr:
-    image: solr:9.4.0
+    build:
+      context: .
+      target: solr
     ports:
       - 8983:8983
     volumes:

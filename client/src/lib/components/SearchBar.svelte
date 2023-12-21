@@ -2,6 +2,7 @@
     import { browser } from "$app/environment";
     import { onNavigate } from "$app/navigation";
     import { Icon, MagnifyingGlass, XMark } from "svelte-hero-icons";
+    import type { FormEventHandler } from "svelte/elements";
 
     let query = browser
         ? new URLSearchParams(window.location.search).get("query")
@@ -9,7 +10,18 @@
 
     let open = false;
 
+    let timeout: number | undefined;
+
+    const onInput: FormEventHandler<HTMLInputElement> = (e) => {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => (e.target as HTMLInputElement)?.form?.requestSubmit(), 200);
+    };
+
     onNavigate((event) => {
+        // Don't update the query if the user is submitting a form
+        if (event.type === "form") return;
+
         const routeQuery = new URLSearchParams(event.to?.url.search).get(
             "query",
         );
@@ -44,6 +56,7 @@
                 id="query"
                 placeholder="Search"
                 value={query}
+                on:input={onInput}
             />
             <button
                 type="submit"

@@ -1,6 +1,6 @@
 <script lang="ts">
     import Story from "$lib/components/Story.svelte";
-    import Pagination from "./Pagination.svelte";
+    import Pagination from "$lib/components/Pagination.svelte";
     import { fly } from "svelte/transition";
     import Profile from "$lib/components/Profile.svelte";
     import logoImage from "$lib/images/logo.svg";
@@ -48,7 +48,7 @@
 {/if}
 
 <ol
-    class="grid grid-cols-[repeat(auto-fill,minmax(min(theme(spacing.72),100%),1fr))] gap-4"
+    class="grid grid-cols-[repeat(auto-fill,minmax(min(theme(spacing.72),100%),1fr))] gap-4 self-stretch"
 >
     {#if data.profile != null}
         <li class="col-span-full border-b-2 border-gold-4 pb-4">
