@@ -56,7 +56,11 @@
         {/if}
 
         {#if profile.origin}
-            <p class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-['from_'] group-hover:text-gold-3 group-hover:before:text-grey-1">{profile.origin.name}</p>
+            <p
+                class="bold-label transition-colors duration-300 before:text-grey-1.5 before:transition-colors before:duration-300 before:content-['from_'] group-hover:text-gold-3 group-hover:before:text-grey-1"
+            >
+                {profile.origin.name}
+            </p>
         {/if}
 
         <section

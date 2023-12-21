@@ -10,13 +10,13 @@
 </script>
 
 <MetaTags
-    title={data.query || 'Search'}
+    title={data.query || "Search"}
     description="Search results for {data.query}"
     titleTemplate="%s - LUIS"
     openGraph={{
         type: "website",
         siteName: "LUIS",
-        title: data.query || 'Search',
+        title: data.query || "Search",
         images: [
             {
                 url: logoImage,
