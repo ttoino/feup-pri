@@ -1,18 +1,29 @@
 <script lang="ts">
-    import liliaImage from "$lib/images/home.webp";
+    import logoImage from "$lib/images/logo.svg?enhanced";
+    import { MetaTags } from "svelte-meta-tags";
 </script>
 
-<svelte:head>
-    <title>LUIS</title>
-    <meta name="description" content="Svelte demo app" />
-</svelte:head>
+<MetaTags
+    title="Home"
+    description="Discover the League of Legends Universe"
+    titleTemplate="%s - LUIS"
+    openGraph={{
+        siteName: "LUIS",
+        title: "Home",
+        images: [
+            {
+                url: logoImage,
+            },
+        ],
+    }}
+/>
 
-<img src={liliaImage} alt="" />
+<enhanced:img src="$lib/images/home.webp" alt="" />
 <h1 class="h3 text-gold-4">
-    <span> Discover League of Legends Universe </span>
+    <span>Discover the League of Legends Universe</span>
 </h1>
 <h2 class="h4 mb-10 text-gold-2">
-    <span> Dive into this magical world full of wonders and fantasy...</span>
+    <span>Dive into this magical world full of wonders and fantasy...</span>
 </h2>
 
 <a

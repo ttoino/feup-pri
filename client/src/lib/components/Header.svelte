@@ -9,10 +9,10 @@
     <a href="/" class="p-2 text-gold-3"><Icon src={Home} class="h-8 w-8" /></a>
 
     <h1 class="h3 mr-auto text-gold-3">
-        <span class="sr-only lg:not-sr-only">
+        <span class="sr-only">
             LoL Universe Indexing and Search
         </span>
-        <span class="lg:hidden" aria-hidden="true">LUIS</span>
+        <enhanced:img src="$lib/images/logo.svg" alt="" class="h-[1.5em]">
     </h1>
 
     <SearchBar />

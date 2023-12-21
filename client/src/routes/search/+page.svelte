@@ -3,14 +3,26 @@
     import Pagination from "./Pagination.svelte";
     import { fly } from "svelte/transition";
     import Profile from "$lib/components/Profile.svelte";
+    import logoImage from "$lib/images/logo.svg?enhanced";
+    import { MetaTags } from "svelte-meta-tags";
 
     export let data;
 </script>
 
-<svelte:head>
-    <title>{data.query || "Search"} - LUIS</title>
-    <meta name="description" content="Search results" />
-</svelte:head>
+<MetaTags
+    title={data.query || 'Search'}
+    description="Search results for {data.query}"
+    titleTemplate="%s - LUIS"
+    openGraph={{
+        siteName: "LUIS",
+        title: data.query || 'Search',
+        images: [
+            {
+                url: logoImage,
+            },
+        ],
+    }}
+/>
 
 <h2 class="h1 mb-4 self-start">
     {#if data.query}

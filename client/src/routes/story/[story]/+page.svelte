@@ -3,14 +3,30 @@
     import Image from "$lib/components/Image.svelte";
     import RelatedChampion from "$lib/components/RelatedChampion.svelte";
     import Story from "$lib/components/Story.svelte";
+    import { MetaTags } from "svelte-meta-tags";
 
     export let data;
 </script>
 
-<svelte:head>
-    <title>{data.story.title} - LUIS</title>
-    <meta name="description" content="" />
-</svelte:head>
+<MetaTags
+    title={data.story.title}
+    description=""
+    titleTemplate="%s - LUIS"
+    openGraph={{
+        siteName: "LUIS",
+        title: data.story.title,
+        article: {
+            publishedTime: data.story.date,
+            authors: data.story.author ? [data.story.author] : [],
+            tags: data.story["related_champions.name"],
+        },
+        images: [
+            {
+                url: data.story.image,
+            },
+        ],
+    }}
+/>
 
 <Image
     url={data.story.image}
