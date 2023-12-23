@@ -15,7 +15,10 @@
     const onInput: FormEventHandler<HTMLInputElement> = (e) => {
         clearTimeout(timeout);
 
-        timeout = setTimeout(() => (e.target as HTMLInputElement)?.form?.requestSubmit(), 200);
+        timeout = setTimeout(
+            () => (e.target as HTMLInputElement)?.form?.requestSubmit(),
+            200,
+        );
     };
 
     onNavigate((event) => {

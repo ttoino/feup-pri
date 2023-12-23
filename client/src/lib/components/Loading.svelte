@@ -8,7 +8,7 @@
     viewBox="0 0 1976 1000"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="fixed left-1/2 top-1/2 z-20 h-32 max-h-full w-auto max-w-full -translate-x-1/2 -translate-y-1/2 transition-opacity pointer-events-none"
+    class="pointer-events-none fixed left-1/2 top-1/2 z-20 h-32 max-h-full w-auto max-w-full -translate-x-1/2 -translate-y-1/2 transition-opacity"
     class:opacity-0={!$navigating}
     aria-hidden="true"
 >

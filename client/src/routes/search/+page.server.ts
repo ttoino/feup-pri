@@ -1,18 +1,12 @@
-import { env } from "$env/dynamic/private";
 import type { Champion, Story } from "$lib/documents";
 import type { QueryResponse } from "$lib/query";
+import { solrUrl } from "$lib/solr";
 import type { PageServerLoad } from "./$types";
 import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ url, fetch }) => {
     const query = url.searchParams.get("query") || "*:*";
     const page = url.searchParams.get("page") || "1";
-
-    const solrUrl = env.SOLR_URL ?? "http://localhost:8983/solr";
-    const solrCore = env.SOLR_CORE ?? "luis";
-    const searchUrl = `${solrUrl}/${solrCore}/select`;
-
-    console.debug(searchUrl);
 
     const limit = 20;
     const offset = (parseInt(page) - 1) * limit;
@@ -42,19 +36,23 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
         hl: "true",
         "hl.fl": "content",
         "hl.fragsize": "100",
-        "hl.tag.pre": "<mark class=\"bg-blue-4 rounded-sm px-1 group-hover:bg-blue-3 transition-colors duration-300 text-grey-4\">",
+        "hl.tag.pre":
+            '<mark class="bg-blue-4 rounded-sm px-1 group-hover:bg-blue-3 transition-colors duration-300 text-grey-4">',
         "hl.tag.post": "</mark>",
     });
+    const searchUrl = solrUrl("select", urlParams);
 
     try {
-        const response = await fetch(`${searchUrl}?${urlParams.toString()}`, {
+        const response = await fetch(searchUrl, {
+            method: "GET",
             headers: {
                 Accept: "application/json",
             },
         });
-        const data: QueryResponse<Story> = await response.json();
 
-        console.log(data);
+        if (!response.ok) error(response.status, response.statusText);
+
+        const data: QueryResponse<Story> = await response.json();
 
         const results: (Story & {
             highlighting?: string;
@@ -68,19 +66,22 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
                 if (!result.highlighting) continue;
 
-                result.highlighting = result.highlighting.replace(/^<\/\w+>/, "");
+                result.highlighting = result.highlighting.replace(
+                    /^<\/\w+>/,
+                    "",
+                );
 
                 const tags = result.highlighting.match(/(<\w+>)|(<\/\w+>)/g);
 
                 const tagStack: string[] = [];
 
                 for (const tag of tags ?? []) {
-                    if (tag.match(/mark|br/))
-                        continue;
+                    if (tag.match(/mark|br/)) continue;
 
                     if (tag.startsWith("</")) {
-                        if (tagStack.length === 0) 
-                            result.highlighting = tag.replace("/", "") + result.highlighting;
+                        if (tagStack.length === 0)
+                            result.highlighting =
+                                tag.replace("/", "") + result.highlighting;
 
                         tagStack.pop();
                     } else {
@@ -90,8 +91,6 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 
                 for (const tag of tagStack)
                     result.highlighting += tag.replace("<", "</");
-
-                console.log(result.highlighting);
             }
 
         let profile: (Champion & { content: string }) | null = null;
