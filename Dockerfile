@@ -1,4 +1,4 @@
-FROM python:3.11-slim as data
+FROM python:3.11-slim AS data
 
 WORKDIR /app
 
@@ -16,11 +16,16 @@ COPY ./Makefile ./Makefile
 
 CMD ["make"]
 
-FROM data as data-static
+FROM data AS data-static
 
-RUN make
+ENV PYTHONUNBUFFERED=x
 
-FROM solr:9.4-slim as solr
+ARG date ""
+
+RUN make collect
+RUN make process
+
+FROM solr:9-slim AS solr
 
 COPY ./solr/advanced.json ./schema.json
 COPY ./solr/config.json ./config.json
@@ -41,6 +46,6 @@ RUN init-var-solr && \
 
 USER root
 
-RUN echo "mv /tmp/luis /var/solr/data/luis" >> /docker-entrypoint-initdb.d/99-luis.sh
+RUN echo "cp -r /tmp/luis /var/solr/data/" >> /docker-entrypoint-initdb.d/99-luis.sh
 
 USER $SOLR_UID
