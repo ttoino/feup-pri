@@ -19,7 +19,7 @@
     }}
 />
 
-<enhanced:img src="$lib/images/home.webp" alt="" />
+<enhanced:img src="$lib/images/home.webp" alt="" class="h-auto w-32 md:w-64" />
 <h1 class="h3 text-gold-4">
     <span>Discover the League of Legends Universe</span>
 </h1>
