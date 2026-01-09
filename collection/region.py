@@ -1,7 +1,7 @@
 import asyncio
 from dataclasses import dataclass
 import aiohttp
-from bs4 import BeautifulSoup
+import traceback
 
 from .constants import REGION_URL, URL_SUFFIX
 from .util import raw_text
@@ -18,10 +18,11 @@ class Region:
 def region_url(region: str):
     return f"{REGION_URL}/{region}/{URL_SUFFIX}"
 
-async def get_region_info(session: aiohttp.ClientSession, r: str):
-    print(f"\tGetting {r} region info...")
-    async with session.get(region_url(r)) as response:
-        json = await response.json()
+async def get_region_info(session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, r: str):
+    try:
+        async with semaphore, session.get(region_url(r)) as response:
+            print(f"\tGetting {r} region info...")
+            json = await response.json()
 
         region = Region(
             id = json['id'],
@@ -31,8 +32,11 @@ async def get_region_info(session: aiohttp.ClientSession, r: str):
             image = json['faction']['image']['uri'],
             associated_champions = [c['name'] for c in json['associated-champions']]
         )
+    except Exception:
+        print(f"Error getting {r} region info:\n{traceback.format_exc()}")
+        raise
 
-        return region
+    return region
 
-async def get_regions(session: aiohttp.ClientSession, regions: list[str]):
-    return await asyncio.gather(*[get_region_info(session, region) for region in regions])
+async def get_regions(session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, regions: list[str]):
+    return await asyncio.gather(*[get_region_info(session, semaphore, region) for region in regions])

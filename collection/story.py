@@ -1,8 +1,8 @@
 import asyncio
 from dataclasses import dataclass
+import traceback
 
 import aiohttp
-from bs4 import BeautifulSoup
 from .constants import STORY_URL, URL_SUFFIX
 from .util import raw_text
 
@@ -21,17 +21,22 @@ class Story:
 def story_url(story: str):
     return f"{STORY_URL}/{story}/{URL_SUFFIX}"
 
-async def get_story_info(session: aiohttp.ClientSession, s: str):
+async def get_story_info(session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, s: str):
     print(f"\tGetting {s} story info...")
 
-    async with session.get(story_url(s)) as response:
-        json = await response.json()
+    try:
+        async with semaphore, session.get(story_url(s)) as response:
+            json = await response.json()
 
         author = json['story']['subtitle']
         if author.lower().startswith('by '):
             author = author[3:]
         else:
             author = None
+
+        image = json['story']['story-sections'][0]['background-image']
+        if image is not None:
+            image = image['uri']
 
         content = ""
         related_champions = set()
@@ -49,11 +54,14 @@ async def get_story_info(session: aiohttp.ClientSession, s: str):
             content = content,
             content_raw = raw_text(content),
             date = json['release-date'],
-            image = json['story']['story-sections'][0]['background-image']['uri'],
+            image = image,
             related_champions = list(related_champions),
         )
+    except Exception:
+        print(f"Error getting {s} story info:\n{traceback.format_exc()}")
+        raise
 
-        return story
+    return story
     
-async def get_stories(session: aiohttp.ClientSession, stories: list[str]):
-    return await asyncio.gather(*[get_story_info(session, story) for story in stories])
+async def get_stories(session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, stories: list[str]):
+    return await asyncio.gather(*[get_story_info(session, semaphore, story) for story in stories])
