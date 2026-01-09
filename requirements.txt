@@ -1,13 +1,13 @@
-aiohttp==3.9.1
-beautifulsoup4==4.12.2
+aiohttp==3.11.3
+beautifulsoup4==4.12.3
 en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.7.1/en_core_web_lg-3.7.1-py3-none-any.whl
-matplotlib==3.8.2
-networkx==3.2.1
-numpy==1.26.2
-pandas==2.1.4
-pillow==10.1.0
-pygraphviz==1.11
-seaborn==0.13.0
-sentence-transformers==2.2.2
-spacy==3.7.2
-wordcloud==1.9.3
+matplotlib==3.9.2
+networkx==3.4.2
+numpy==1.26.4
+pandas==2.2.3
+pillow==11.0.0
+pygraphviz==1.14
+seaborn==0.13.2
+sentence-transformers==3.3.1
+spacy==3.7.3
+wordcloud==1.9.4
