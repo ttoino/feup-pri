@@ -34,6 +34,9 @@ def champion_wiki_url(champion: str):
 def champion_wiki_lol_url(champion: str):
     return f"{WIKI_URL}/{champion}"
 
+def champion_wiki_wr_url(champion: str):
+    return f"{WIKI_URL}/WR:{champion}"
+
 async def get_champion_info(session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, c: str):
     try:
         async with semaphore, session.get(champion_url(c)) as response:
@@ -62,7 +65,9 @@ async def get_champion_info(session: aiohttp.ClientSession, semaphore: asyncio.S
             related_champions = [c['name'] for c in json['related-champions']],
         )
 
-        async with semaphore, session.get(champion_wiki_url(champion.name.replace("’", "'"))) as response:
+        champion_name = champion.name.replace("’", "'")
+
+        async with semaphore, session.get(champion_wiki_url(champion_name)) as response:
             print(f"\tGetting {c} champion wiki info...")
             html = await response.text()
 
@@ -71,15 +76,26 @@ async def get_champion_info(session: aiohttp.ClientSession, semaphore: asyncio.S
         champion.races = list({race.text.strip() for race in soup.select('.infobox-data-label:-soup-contains(Species) ~ :is(.infobox-data-value li:not(:has(s)), .infobox-data-value:not(:has(li)))')})
         champion.aliases = list({alias.text.strip() for alias in soup.select('.infobox-data-label:-soup-contains(Alias) ~ :is(.infobox-data-value li:not(:has(s)), .infobox-data-value:not(:has(li)))')})
 
-        async with semaphore, session.get(champion_wiki_lol_url(champion.name.replace("’", "'"))) as response:
+        async with semaphore, session.get(champion_wiki_lol_url(champion_name)) as response:
             print(f"\tGetting {c} champion wiki lol info...")
             html = await response.text()
 
         soup = BeautifulSoup(html, 'html.parser')
 
+        namespace = soup.select_one('.mw-page-title-namespace')
+        if namespace is not None and namespace.text.strip() == 'Universe':
+            # No LoL entry, it's a WR exclusive
+            async with semaphore, session.get(champion_wiki_wr_url(champion_name)) as response:
+                print(f"\tGetting {c} champion wiki wr info...")
+                html = await response.text()
+
+        soup = BeautifulSoup(html, 'html.parser')
+
         champion.roles = list({role.text.strip() for role in soup.select('.infobox-data-label:-soup-contains(Class) ~ .infobox-data-value')})
-        champion.skins = list({skin.attrs['title'].strip() for skin in soup.select('.skinviewer-show:not(:first-child) > span[title]')})
-        champion.icon = soup.select_one('.skinviewer-show:first-child img').attrs['src']
+        # Not a thing for WR exclusives
+        if soup.select_one('.skinviewer-show') is not None:
+            champion.skins = list({skin.attrs['title'].strip() for skin in soup.select('.skinviewer-show:not(:first-child) > span[title]')})
+            champion.icon = soup.select_one('.skinviewer-show:first-child img').attrs['src']
 
     except Exception:
         print(f"\tError getting {c} champion info:\n{traceback.format_exc()}")
