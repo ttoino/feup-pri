@@ -22,10 +22,9 @@ def story_url(story: str):
     return f"{STORY_URL}/{story}/{URL_SUFFIX}"
 
 async def get_story_info(session: aiohttp.ClientSession, semaphore: asyncio.Semaphore, s: str):
-    print(f"\tGetting {s} story info...")
-
     try:
         async with semaphore, session.get(story_url(s)) as response:
+            print(f"\tGetting {s} story info...")
             json = await response.json()
 
         author = json['story']['subtitle']
